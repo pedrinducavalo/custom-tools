@@ -1,0 +1,11 @@
+{
+    "name": "custom-tools",
+    "url": "https://github.com",
+    "license": "MIT",
+    "tags": ["utilidades", "ferramentas"],
+    "description": "Ferramentas customizadas para Haxe.",
+    "version": "1.0.0",
+    "classPath": "source/",
+    "releasenote": "Primeira versão estável de custom-tools.",
+    "contributors": ["dre"]
+}
