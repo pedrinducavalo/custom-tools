@@ -1,4 +1,4 @@
-# hxml fake só pra eu ter o auto completar enquanto to fazendo isso
+# Dummy build.hxml so I can use VS Code IntelliSense.
 -cp source
 -js dummy.js
 --no-output
