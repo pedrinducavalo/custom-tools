@@ -27,7 +27,7 @@ This project is intentionally small and simple, designed as a straightforward ha
 If you want to install it as a haxelib package:
 
 ```bash
-haxelib install custom-tools
+haxelib git custom-tools https://github.com/pedrinducavalo/custom-tools
 ```
 
 If you are working from a local checkout:
