@@ -45,13 +45,13 @@ using ArrayTools;
 
 class Main {
     static function main() {
-        var values =;
+        var values = [1, 2, 3, 4, 3, 4];
 
         trace(values.firstItem()); // 1
         trace(values.lastItem());  // 4
         trace(values.hasItems());  // true
         trace(values.unique());    // [1, 2, 3, 4]
-        trace(values.sum());       // 12
+        trace(values.sum());       // 17
         trace(values.sample(2));   // 2 random items
     }
 }
@@ -61,8 +61,18 @@ class Main {
 ```haxe
 import ArrayTools;
 
-var values =;
-trace(ArrayTools.firstItem(values)); // 1
+class Main {
+    static function main() {
+        var values = [1, 2, 3, 4];
+
+        trace(ArrayTools.firstItem(values)); // 1
+        trace(ArrayTools.lastItem(values)); // 4
+        trace(ArrayTools.hasItems(values)); // true
+        trace(ArrayTools.unique([1, 2, 1, 3])); // [1, 2, 3]
+        trace(ArrayTools.sample([10, 20, 30, 40], 2)); // 2 random items
+        trace(ArrayTools.sum([1, 2, 3])); // 6
+    }
+}
 ```
 
 ## Flixel Support
@@ -78,7 +88,7 @@ This enables specific behaviors, such as cleaning up dead or inactive `FlxBasic`
 ```haxe
 using ArrayTools;
 
-// Removes and destroys inactive notes, sprites, or group members automatically
+// Removes and destroys inactive objects, sprites, or group members automatically
 myFlixelArray.removeDead(); 
 ```
 
