@@ -65,12 +65,12 @@ class Main {
     static function main() {
         var values = [1, 2, 3, 4];
 
-        trace(ArrayTools.firstItem(values)); // 1
-        trace(ArrayTools.lastItem(values)); // 4
-        trace(ArrayTools.hasItems(values)); // true
-        trace(ArrayTools.unique([1, 2, 1, 3])); // [1, 2, 3]
+        trace(ArrayTools.firstItem(values));           // 1
+        trace(ArrayTools.lastItem(values));            // 4
+        trace(ArrayTools.hasItems(values));            // true
+        trace(ArrayTools.unique([1, 2, 1, 3]));        // [1, 2, 3]
         trace(ArrayTools.sample([10, 20, 30, 40], 2)); // 2 random items
-        trace(ArrayTools.sum([1, 2, 3])); // 6
+        trace(ArrayTools.sum([1, 2, 3]));              // 6
     }
 }
 ```
