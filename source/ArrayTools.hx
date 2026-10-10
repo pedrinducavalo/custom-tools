@@ -6,70 +6,70 @@ import flixel.FlxG;
 #end
 
 /**
- * Classe utilitária para `Array`, ideal para uso com `using`.
- * **Autor:** dre
+ * Utility class for `Array`.
+ * **Author:** dre
  */
 @:final
 class ArrayTools {
     /**
-     * Construtor privado impede `new ArrayTools()`.
+     * Private constructor prevents `new ArrayTools()`.
      */
     @:noCompletion
     private function new():Void {}
 
     /**
-     * Retorna o primeiro item de uma `Array`.
+     * Returns the first item of an `Array`.
      * 
      * ---
-     * **Exemplo de uso:**
+     * **Usage example:**
      * ```haxe
-     * var minhaArray:Array<String> = ['Primeiro', 'Último'];
-     * trace(minhaArray.firstItem()); // Resultado: Primeiro.
+     * var myArray:Array<String> = ['First', 'Last'];
+     * trace(myArray.firstItem()); // Result: First.
      * ```
      * ---
      * 
-     * @return O primeiro item da lista (ou `null`, caso a lista não tenha itens).
+     * @return The first item in the list (or `null` if the list is empty).
      * @since 0.0.1
      */
     public inline static function firstItem<T>(array:Array<T>):Null<T>
         return hasItems(array) ? array[0] : null;
 
     /**
-     * Retorna o último item de uma `Array`.
+     * Returns the last item of an `Array`.
      * 
      * ---
-     * **Exemplo de uso:**
+     * **Usage example:**
      * ```haxe
-     * var minhaArray:Array<String> = ['Primeiro', 'Último'];
-     * trace(minhaArray.lastItem()); // Resultado: Último.
+     * var myArray:Array<String> = ['First', 'Last'];
+     * trace(myArray.lastItem()); // Result: Last.
      * ```
      * ---
      * 
-     * @return O último item da lista (ou `null`, caso a lista não tenha itens).
+     * @return The last item in the list (or `null` if the list is empty).
      * @since 0.0.1
      */
     public inline static function lastItem<T>(array:Array<T>):Null<T>
         return hasItems(array) ? array[array.length - 1] : null;
 
     /**
-     * Indica se a `Array` contém itens.
+     * Indicates whether the `Array` contains items.
      * 
      * ---
-     * **Exemplo de uso:**
+     * **Usage example:**
      * ```haxe
-     * var minhaArray:Array<String> = [];
-     * trace(minhaArray.hasItems()); // Resultado: false.
+     * var myArray:Array<String> = [];
+     * trace(myArray.hasItems()); // Result: false.
      * ```
      * ---
      * 
-     * @return `true` se a lista contém algum item; caso contrário, `false`.
+     * @return `true` if the list contains any item; otherwise, `false`.
      * @since 0.0.1
      */
     public inline static function hasItems<T>(array:Array<T>):Bool
-        return array.length > 0;
+        return array.length > 0 && array != null;
 
     /**
-     * Embaralha os itens de uma `Array` aleatoriamente.
+     * Randomly shuffles the items of an `Array`.
      * @since 0.0.1
      */
     public inline static function shuffle<T>(array:Array<T>):Array<T> {
@@ -88,8 +88,8 @@ class ArrayTools {
     }
 
     /**
-     * Retorna um item aleatório de uma `Array`.
-     * @return Um item aleatório da lista (ou `null`, caso a lista não tenha itens).
+     * Returns a random item from an `Array`.
+     * @return A random item from the list (or `null` if the list is empty).
      * @since 0.0.1
      */
     public inline static function randomItem<T>(array:Array<T>):Null<T> {
@@ -104,22 +104,22 @@ class ArrayTools {
     }
 
     /**
-     * Soma todos os itens de uma `Array` numérica.
-     * Caso a `Array` seja de outro tipo, a quantidade de itens é o resultado.
+     * Sums all items in a numeric `Array`.
+     * If the `Array` is of another type, the item count is returned as the result.
      * 
      * ---
-     * **Exemplos de uso:**
+     * **Usage examples:**
      * ```haxe
-     * var minhaArrayFloat:Array<Float> = [1.27, 3.18, 2.72];
-     * var minhaArrayInt:Array<Int> = [2, 9, 6];
-     * var minhaArrayString:Array<String> = ['Um', 'Dois', 'Três'];
-     * trace(minhaArrayFloat.sum()); // Resultado: 7.17.
-     * trace(minhaArrayInt.sum()); // Resultado: 17.
-     * trace(minhaArrayString.sum()); // Resultado: 3.
+     * var floatArray:Array<Float> = [1.27, 3.18, 2.72];
+     * var intArray:Array<Int> = [2, 9, 6];
+     * var stringArray:Array<String> = ['One', 'Two', 'Three'];
+     * trace(floatArray.sum()); // Result: 7.17.
+     * trace(intArray.sum()); // Result: 17.
+     * trace(stringArray.sum()); // Result: 3.
      * ```
      * ---
      * 
-     * @return A soma de todos os itens da lista (ou `null` se a lista não tiver itens).
+     * @return The sum of all items in the list (or `null` if the list is empty).
      * @since 0.0.1
      */
     public inline static function sum<T>(array:Array<T>):Null<T> {
@@ -136,22 +136,22 @@ class ArrayTools {
     }
 
     /**
-     * Subtrai todos os itens de uma `Array` numérica.
-     * Caso a `Array` não seja desse tipo, retorna o negativo da quantidade de itens.
+     * Subtracts all items from a numeric `Array`.
+     * If the `Array` is not of that type, it returns the negative item count.
      * 
      * ---
-     * **Exemplos de uso:**
+     * **Usage examples:**
      * ```haxe
-     * var minhaArrayFloat:Array<Float> = [1.27, 3.18, 2.72];
-     * var minhaArrayInt:Array<Int> = [2, 9, 6];
-     * var minhaArrayString:Array<String> = ['Um', 'Dois', 'Três'];
-     * trace(minhaArrayFloat.sub()); // Resultado: -4.63.
-     * trace(minhaArrayInt.sub()); // Resultado: -13.
-     * trace(minhaArrayString.sub()); // Resultado: -3.
+     * var floatArray:Array<Float> = [1.27, 3.18, 2.72];
+     * var intArray:Array<Int> = [2, 9, 6];
+     * var stringArray:Array<String> = ['One', 'Two', 'Three'];
+     * trace(floatArray.sub()); // Result: -4.63.
+     * trace(intArray.sub()); // Result: -13.
+     * trace(stringArray.sub()); // Result: -3.
      * ```
      * ---
      * 
-     * @return O resultado da subtração dos itens (ou `null` se a lista não tiver itens).
+     * @return The result of subtracting the items (or `null` if the list is empty).
      * @since 0.0.1
      */
     public inline static function sub<T>(array:Array<T>):Null<T> {
@@ -159,7 +159,7 @@ class ArrayTools {
             var bool = isArrayOf(array, Int) || isArrayOf(array, Float);
             var total:Dynamic = (bool) ? array[0] : 0;
             if (bool) {
-                for (i in 0...array.length + 1) // Pula o primeiro item porque a subtração começa a partir dele.
+                for (i in 0...array.length + 1) // Skip the first item because subtraction starts from it.
                     total -= (i < array.length) ? (cast array[i]:Dynamic) : 0;
             } else {
                 for (i in 0...array.length)
@@ -171,21 +171,21 @@ class ArrayTools {
     }
 
     /**
-     * Retorna um item com base no item atual.
+     * Returns an item based on the current item.
      * 
      * ---
-     * **Exemplo de uso:**
+     * **Usage example:**
      * ```haxe
-     * var minhaArray:Array<String> = ['Primeiro', 'Segundo'];
-     * trace(minhaArray.nextItem(0)); // Resultado: Segundo.
-     * trace(minhaArray.nextItem(2, true)); // Resultado: Primeiro.
+     * var myArray:Array<String> = ['First', 'Second'];
+     * trace(myArray.nextItem(0)); // Result: Second.
+     * trace(myArray.nextItem(2, true)); // Result: First.
      * ```
      * ---
      * 
-     * @param curItem O índice do item atual.
-     * @param wrap Se `true`, retorna o primeiro item ao ultrapassar os limites da lista.
-     * @return O próximo item da lista (ou `null` se a lista não
-     * tiver itens ou o índice estiver fora dos limites e `wrap` estiver desativado).
+     * @param curItem The index of the current item.
+     * @param wrap If `true`, returns the first item when passing beyond the list bounds.
+     * @return The next item in the list (or `null` if the list is empty,
+     * or the index is out of bounds and `wrap` is disabled).
      * @since 0.0.1
      */
     public inline static function nextItem<T>(array:Array<T>, curItem:Int = 0, wrap:Bool = false):Null<T> {
@@ -199,21 +199,21 @@ class ArrayTools {
     }
 
     /**
-     * Retorna um item com base no item atual.
+     * Returns an item based on the current item.
      * 
      * ---
-     * **Exemplo de uso:**
+     * **Usage example:**
      * ```haxe
-     * var minhaArray:Array<String> = ['Primeiro', 'Segundo'];
-     * trace(minhaArray.previousItem(1)); // Resultado: Primeiro.
-     * trace(minhaArray.previousItem(0, true)); // Resultado: Segundo.
+     * var myArray:Array<String> = ['First', 'Second'];
+     * trace(myArray.previousItem(1)); // Result: First.
+     * trace(myArray.previousItem(0, true)); // Result: Second.
      * ```
      * ---
      * 
-     * @param curItem O índice do item atual.
-     * @param wrap Se `true`, retorna o último item ao ultrapassar os limites da lista.
-     * @return O item anterior da lista (ou `null` se a lista não
-     * tiver itens ou o índice estiver fora dos limites e `wrap` estiver desativado).
+     * @param curItem The index of the current item.
+     * @param wrap If `true`, returns the last item when passing beyond the list bounds.
+     * @return The previous item in the list (or `null` if the list is empty,
+     * or the index is out of bounds and `wrap` is disabled).
      * @since 0.0.1
      */
     public inline static function previousItem<T>(array:Array<T>, curItem:Int = 0, wrap:Bool = false):Null<T> {
@@ -228,19 +228,19 @@ class ArrayTools {
     }
 
     /**
-     * Retorna se uma `Array` é de um tipo específico.
+     * Returns whether an `Array` is of a specific type.
      * 
      * ---
-     * **Exemplo de uso:**
+     * **Usage example:**
      * ```haxe
-     * var minhaArray = ['Sim', 'Não'];
-     * trace(minhaArray.isArrayOf(String)); // Resultado: true
+     * var myArray = ['Yes', 'No'];
+     * trace(myArray.isArrayOf(String)); // Result: true
      * ```
      * ---
      * 
-     * @param type O tipo alvo da `Array`.
-     * @return `true` se todos os itens forem desse tipo, `false` se algum não for
-     * e `null` se a lista não tiver itens.
+     * @param type The target type of the `Array`.
+     * @return `true` if all items are of that type, `false` if any are not,
+     * and `null` if the list is empty.
      * @since 0.0.1
      */
     public static function isArrayOf<T>(array:Array<T>, type:Dynamic):Null<Bool> {
@@ -254,11 +254,11 @@ class ArrayTools {
     }
 
     /**
-     * Destrói os itens que são instâncias de `FlxBasic` e esvazia a `Array`.
+     * Destroys items that are instances of `FlxBasic` and clears the `Array`.
      *
-     * Se a lista já estiver vazia, retorna uma nova `Array` vazia.
+     * If the list is already empty, returns a new empty `Array`.
      *
-     * @return A lista esvaziada ou uma nova `Array` vazia, caso a lista original já estivesse vazia.
+     * @return The cleared list or a new empty `Array` if the original list was already empty.
      * @since 0.0.1
      */
     public inline static function clear<T>(array:Array<T>):Array<T> {
@@ -279,12 +279,12 @@ class ArrayTools {
 
     #if flixel
     /**
-     * Remove e destrói os itens de `FlxBasic` que não estão ativos ou não existem.
+     * Removes and destroys `FlxBasic` items that are inactive or do not exist.
      *
-     * Se a lista já estiver vazia, retorna uma nova `Array` vazia.
+     * If the list is already empty, returns a new empty `Array`.
      *
-     * @return A lista sem os itens inativos ou inexistentes, ou uma nova `Array` vazia
-     * se a lista original já estivesse vazia.
+     * @return The list without inactive or nonexistent items, or a new empty `Array`
+     * if the original list was already empty.
      * @since 0.0.1
      */
     public inline static function removeDead<T:FlxBasic>(array:Array<T>):Array<T> {
@@ -300,4 +300,184 @@ class ArrayTools {
         return [];
     }
     #end
+
+    /**
+     * Returns the first item in an `Array` that matches a predicate.
+     *
+     * ---
+     * **Usage example:**
+     * ```haxe
+     * var myArray:Array<Int> = [1, 2, 3];
+     * trace(myArray.find(function(item) return item > 1)); // Result: 2.
+     * ```
+     * ---
+     *
+     * @param predicate The function used to test each item.
+     * @return The first matching item, or `null` if no item matches.
+     * @since 0.0.2
+     */
+    public inline static function find<T>(array:Array<T>, predicate:T->Bool):Null<T> {
+        if (hasItems(array)) {
+            for (i in array) {
+                if (predicate(i))
+                    return i;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Returns up to a specified number of randomly selected items from an `Array`.
+     *
+     * The original `Array` is not modified.
+     *
+     * ---
+     * **Usage example:**
+     * ```haxe
+     * var myArray:Array<Int> = [1, 2, 3];
+     * trace(myArray.sample(2)); // Result: two randomly selected items.
+     * ```
+     * ---
+     *
+     * @param n The maximum number of items to return.
+     * @return A new `Array` containing the selected items, or an empty `Array`
+     * if the source is empty or `n` is less than or equal to zero.
+     * @since 0.0.2
+     */
+    public inline static function sample<T>(array:Array<T>, n:Int):Array<T> {
+        if (hasItems(array)) {
+            var copy = array.copy();
+            var result = [];
+
+            var count = (n > copy.length) ? copy.length : n;
+
+            for (i in 0...count)
+                result.push(copy.splice(Std.random(copy.length), 1)[0]);
+
+            return result;
+        }
+        return [];
+    }
+
+    /**
+     * Returns the value of a field from each item in an `Array`.
+     *
+     * ---
+     * **Usage example:**
+     * ```haxe
+     * var users = [{name: 'Ada'}, {name: 'Linus'}];
+     * trace(users.pluck('name')); // Result: ['Ada', 'Linus'].
+     * ```
+     * ---
+     *
+     * @param key The name of the field to retrieve from each item.
+     * @return A new `Array` containing the field values, or an empty `Array`
+     * if the source is empty.
+     * @since 0.0.2
+     */
+    public inline static function pluck<T, V>(array:Array<T>, key:String):Array<V> {
+        if (hasItems(array)) {
+            return [
+                for (i in array)
+                (Reflect.field(i, key) : V)
+            ];
+        }
+        return [];
+    }
+
+    /**
+     * Returns a new `Array` containing only the unique items from an `Array`.
+     *
+     * The first occurrence of each item is kept, preserving the original order.
+     *
+     * ---
+     * **Usage example:**
+     * ```haxe
+     * var myArray:Array<Int> = [1, 2, 1, 3];
+     * trace(myArray.unique()); // Result: [1, 2, 3].
+     * ```
+     * ---
+     *
+     * @return A new `Array` without duplicate items, or an empty `Array`
+     * if the source is empty.
+     * @since 0.0.2
+     */
+    public inline static function unique<T>(array:Array<T>):Array<T> {
+        if (hasItems(array)) {
+            var seen = new Map<Dynamic, Bool>();
+            var result = [];
+
+            for (i in array) {
+                if (!seen.exists(i)) {
+                    seen.set(i, true);
+                    result.push(i);
+                }
+            }
+
+            return result;
+        }
+        return [];
+    }
+
+    /**
+     * Combines the items of nested `Array`s into a single `Array`.
+     *
+     * This flattens one level of nesting and does not modify the source `Array`.
+     *
+     * ---
+     * **Usage example:**
+     * ```haxe
+     * var myArray:Array<Array<Int>> = [[1, 2], [3]];
+     * trace(myArray.flatten()); // Result: [1, 2, 3].
+     * ```
+     * ---
+     *
+     * @return A new `Array` containing the items from each nested `Array`,
+     * or an empty `Array` if the source contains no items.
+     * @since 0.0.2
+     */
+    public inline static function flatten<T>(array:Array<Array<T>>):Array<T> {
+        if (hasItems(array)) {
+            var result = [];
+
+            for (s in array) {
+                if (hasItems(s)) {
+                    for (i in s)
+                        result.push(i);
+                }
+            }
+
+            return result;
+        }
+        return [];
+    }
+
+    /**
+     * Removes the specified values from an `Array`.
+     *
+     * The source `Array` is modified; only the first matching occurrence of
+     * each value is removed.
+     *
+     * ---
+     * **Usage example:**
+     * ```haxe
+     * var myArray:Array<Int> = [1, 2, 3, 2];
+     * myArray.without([2, 3]);
+     * trace(myArray); // Result: [1, 2].
+     * ```
+     * ---
+     *
+     * @param values The values to remove from the `Array`.
+     * @return The modified `Array`, or a new empty `Array` if the source is empty.
+     * @since 0.0.2
+     */
+    public inline static function without<T>(array:Array<T>, values:Array<T>):Array<T> {
+        if (hasItems(array)) {
+            for (i in values)
+                array.remove(i);
+
+            return array;
+        }
+        return [];
+    }
 }

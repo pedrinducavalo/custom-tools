@@ -1,11 +1,11 @@
 {
     "name": "custom-tools",
-    "url": "https://github.com",
+    "url": "https://github.com/pedrinducavalo/custom-tools",
     "license": "MIT",
-    "tags": ["utilidades", "ferramentas"],
-    "description": "Ferramentas customizadas para Haxe.",
-    "version": "1.0.0",
+    "tags": ["utilities", "tools"],
+    "description": "Custom class tools for haxe.",
+    "version": "0.0.2",
     "classPath": "source/",
-    "releasenote": "Primeira versão estável de custom-tools.",
+    "releasenote": "Some additions to ArrayTools.",
     "contributors": ["dre"]
 }

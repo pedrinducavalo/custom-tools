@@ -1,0 +1,4 @@
+# hxml fake só pra eu ter o auto completar enquanto to fazendo isso
+-cp source
+-js dummy.js
+--no-output
