@@ -1,4 +1,3 @@
-# Dummy build.hxml so I can use VS Code IntelliSense.
 -cp source
 -js dummy.js
 --no-output
