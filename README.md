@@ -38,14 +38,14 @@ enum Color {
 class Main {
     static function main() {
         var numbers = [1, 2, 3, 4];
-        trace(numbers.firstItem()); // 1
+        trace(numbers.firstItem());  // 1
         trace(numbers.sum());       // 10
 
         var scores = ["Ada" => 37, "Linus" => 54];
-        trace(scores.getOrElse("Ada", 0)); // 37
+        trace(scores.getOrElse("Ada", 0));  // 37
         trace(scores.keysArray());         // ["Ada", "Linus"]
 
-        trace(Color.getNames());       // ["Red", "Green", "Blue"]
+        trace(Color.getNames());         // ["Red", "Green", "Blue"]
         trace(Color.fromString("Red")); // Red
     }
 }
@@ -67,8 +67,8 @@ var first = [10, 20, 30].firstItem(); // 10
 using CustomTools.ArrayTools;
 
 var values = [1, 2, 3, 2];
-trace(values.unique()); // [1, 2, 3]
-trace(values.sum());    // 8
+trace(values.unique());    // [1, 2, 3]
+trace(values.sum());      // 8
 trace(values.sample(2)); // 2 randomly selected items
 ```
 
@@ -97,7 +97,7 @@ enum Color {
     Blue;
 }
 
-var names = Color.getNames();         // ["Red", "Green", "Blue"]
+var names = Color.getNames();          // ["Red", "Green", "Blue"]
 var color = Color.fromIndex(1);       // Green
 var index = Color.Green.toIndex();   // 1
 ```
@@ -110,8 +110,8 @@ When compiled with the `flixel` define, the library enables Flixel-specific beha
 
 - `ArrayTools.randomItem()` uses Flixel's random number generator.
 - `ArrayTools.clear()` destroys `FlxBasic` items before clearing the array.
-- `ArrayTools.removeDead()` removes and destroys inactive or nonexistent `FlxBasic` items.
-- `MapTools.removeDead()` removes and destroys map values when all values are `FlxBasic` instances.
+- `ArrayTools.removeArrayDead()` removes and destroys inactive or nonexistent `FlxBasic` items.
+- `MapTools.removeMapDead()` removes and destroys map values when all values are `FlxBasic` instances.
 
 In HaxeFlixel projects, the `flixel` define is typically provided by the project configuration. It can also be enabled explicitly:
 
