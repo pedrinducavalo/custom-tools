@@ -4,7 +4,7 @@
     "license": "MIT",
     "tags": ["utilities", "tools"],
     "description": "Custom class tools for haxe.",
-    "version": "0.0.2",
+    "version": "0.0.4",
     "classPath": "source/",
     "releasenote": "Some additions to ArrayTools.",
     "contributors": ["dre"]
