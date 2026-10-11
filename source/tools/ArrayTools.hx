@@ -1,4 +1,4 @@
-package;
+package tools;
 
 #if flixel
 import flixel.FlxBasic;
@@ -9,8 +9,7 @@ import flixel.FlxG;
  * Utility class for `Array`.
  * **Author:** dre
  */
-@:final
-class ArrayTools {
+final class ArrayTools {
     /**
      * Private constructor prevents `new ArrayTools()`.
      */
@@ -31,7 +30,7 @@ class ArrayTools {
      * @return The first item in the list (or `null` if the list is empty).
      * @since 0.0.1
      */
-    public inline static function firstItem<T>(array:Array<T>):Null<T>
+    public static function firstItem<T>(array:Array<T>):Null<T>
         return hasItems(array) ? array[0] : null;
 
     /**
@@ -48,7 +47,7 @@ class ArrayTools {
      * @return The last item in the list (or `null` if the list is empty).
      * @since 0.0.1
      */
-    public inline static function lastItem<T>(array:Array<T>):Null<T>
+    public static function lastItem<T>(array:Array<T>):Null<T>
         return hasItems(array) ? array[array.length - 1] : null;
 
     /**
@@ -65,14 +64,14 @@ class ArrayTools {
      * @return `true` if the list contains any item; otherwise, `false`.
      * @since 0.0.1
      */
-    public inline static function hasItems<T>(array:Array<T>):Bool
+    public static function hasItems<T>(array:Array<T>):Bool
         return array.length > 0 && array != null;
 
     /**
      * Randomly shuffles the items of an `Array`.
      * @since 0.0.1
      */
-    public inline static function shuffle<T>(array:Array<T>):Array<T> {
+    public static function shuffle<T>(array:Array<T>):Array<T> {
         var i:Int = array.length;
 
         while (i > 1) {
@@ -92,7 +91,7 @@ class ArrayTools {
      * @return A random item from the list (or `null` if the list is empty).
      * @since 0.0.1
      */
-    public inline static function randomItem<T>(array:Array<T>):Null<T> {
+    public static function randomItem<T>(array:Array<T>):Null<T> {
         if (hasItems(array)) {
             #if flixel
             return FlxG.random.getObject(array);
@@ -122,7 +121,7 @@ class ArrayTools {
      * @return The sum of all items in the list (or `null` if the list is empty).
      * @since 0.0.1
      */
-    public inline static function sum<T>(array:Array<T>):Null<T> {
+    public static function sum<T>(array:Array<T>):Null<T> {
         if (hasItems(array)) {
             var bool:Bool = isArrayOf(array, Int) || isArrayOf(array, Float);
             var total:Dynamic = (bool) ? 0 : array.length;
@@ -154,7 +153,7 @@ class ArrayTools {
      * @return The result of subtracting the items (or `null` if the list is empty).
      * @since 0.0.1
      */
-    public inline static function sub<T>(array:Array<T>):Null<T> {
+    public static function sub<T>(array:Array<T>):Null<T> {
         if (hasItems(array)) {
             var bool = isArrayOf(array, Int) || isArrayOf(array, Float);
             var total:Dynamic = (bool) ? array[0] : 0;
@@ -188,7 +187,7 @@ class ArrayTools {
      * or the index is out of bounds and `wrap` is disabled).
      * @since 0.0.1
      */
-    public inline static function nextItem<T>(array:Array<T>, curItem:Int = 0, wrap:Bool = false):Null<T> {
+    public static function nextItem<T>(array:Array<T>, curItem:Int = 0, wrap:Bool = false):Null<T> {
         if (hasItems(array)) {
             if (curItem > (array.length - 1) || curItem < (array.length - 1)) {
                 if (wrap)
@@ -216,7 +215,7 @@ class ArrayTools {
      * or the index is out of bounds and `wrap` is disabled).
      * @since 0.0.1
      */
-    public inline static function previousItem<T>(array:Array<T>, curItem:Int = 0, wrap:Bool = false):Null<T> {
+    public static function previousItem<T>(array:Array<T>, curItem:Int = 0, wrap:Bool = false):Null<T> {
         if (hasItems(array)) {
             var lengthIndex:Int = array.length - 1;
             if (curItem < lengthIndex || curItem > lengthIndex) {
@@ -261,7 +260,7 @@ class ArrayTools {
      * @return The cleared list or a new empty `Array` if the original list was already empty.
      * @since 0.0.1
      */
-    public inline static function clear<T>(array:Array<T>):Array<T> {
+    public static function clear<T>(array:Array<T>):Array<T> {
         if (hasItems(array)) {
             #if flixel
             for (i in array) {
@@ -287,7 +286,7 @@ class ArrayTools {
      * if the original list was already empty.
      * @since 0.0.1
      */
-    public inline static function removeDead<T:FlxBasic>(array:Array<T>):Array<T> {
+    public static function removeArrayDead<T:FlxBasic>(array:Array<T>):Array<T> {
         if (hasItems(array)) {
             for (i in array) {
                 if (!i.alive || !i.exists) {
@@ -316,7 +315,7 @@ class ArrayTools {
      * @return The first matching item, or `null` if no item matches.
      * @since 0.0.2
      */
-    public inline static function find<T>(array:Array<T>, predicate:T->Bool):Null<T> {
+    public static function find<T>(array:Array<T>, predicate:T->Bool):Null<T> {
         if (hasItems(array)) {
             for (i in array) {
                 if (predicate(i))
@@ -344,7 +343,7 @@ class ArrayTools {
      * if the source is empty or `n` is less than or equal to zero.
      * @since 0.0.2
      */
-    public inline static function sample<T>(array:Array<T>, n:Int):Array<T> {
+    public static function sample<T>(array:Array<T>, n:Int):Array<T> {
         if (hasItems(array)) {
             var copy = array.copy();
             var result = [];
@@ -375,7 +374,7 @@ class ArrayTools {
      * if the source is empty.
      * @since 0.0.2
      */
-    public inline static function pluck<T, V>(array:Array<T>, key:String):Array<V> {
+    public static function pluck<T, V>(array:Array<T>, key:String):Array<V> {
         if (hasItems(array)) {
             return [
                 for (i in array)
@@ -402,7 +401,7 @@ class ArrayTools {
      * if the source is empty.
      * @since 0.0.2
      */
-    public inline static function unique<T>(array:Array<T>):Array<T> {
+    public static function unique<T>(array:Array<T>):Array<T> {
         if (hasItems(array)) {
             var seen = new Map<Dynamic, Bool>();
             var result = [];
@@ -436,7 +435,7 @@ class ArrayTools {
      * or an empty `Array` if the source contains no items.
      * @since 0.0.2
      */
-    public inline static function flatten<T>(array:Array<Array<T>>):Array<T> {
+    public static function flatten<T>(array:Array<Array<T>>):Array<T> {
         if (hasItems(array)) {
             var result = [];
 
@@ -471,7 +470,7 @@ class ArrayTools {
      * @return The modified `Array`, or a new empty `Array` if the source is empty.
      * @since 0.0.2
      */
-    public inline static function without<T>(array:Array<T>, values:Array<T>):Array<T> {
+    public static function without<T>(array:Array<T>, values:Array<T>):Array<T> {
         if (hasItems(array)) {
             for (i in values)
                 array.remove(i);

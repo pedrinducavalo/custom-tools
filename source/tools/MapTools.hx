@@ -1,4 +1,4 @@
-package;
+package tools;
 
 import haxe.Constraints.IMap;
 #if flixel
@@ -9,8 +9,7 @@ import flixel.FlxBasic;
  * Utility class for `Map`.
  * **Author:** dre
  */
-@:final
-class MapTools {
+final class MapTools {
     /**
      * Private constructor prevents `new MapTools()`.
      */
@@ -34,7 +33,7 @@ class MapTools {
      * @return The value associated with the key, or `defaultValue` if the key is not present.
      * @since 0.0.4
      */
-    public inline static function getOrElse<K, V>(map:IMap<K, V>, key:K, defaultValue:V):Null<V>
+    public static function getOrElse<K, V>(map:IMap<K, V>, key:K, defaultValue:V):Null<V>
         return (map.exists(key)) ? map.get(key) : defaultValue;
 
     /**
@@ -53,7 +52,7 @@ class MapTools {
      * @return The existing value, or the value created by `defaultFactory`.
      * @since 0.0.4
      */
-    public inline static function getOrSet<K, V>(map:IMap<K, V>, key:K, defaultFactory:()->V):V {
+    public static function getOrSet<K, V>(map:IMap<K, V>, key:K, defaultFactory:()->V):V {
         if (map.exists(key))
             return map.get(key);
         else {
@@ -82,7 +81,7 @@ class MapTools {
      * @return A new map containing the entries of both maps, with `otherMap` taking precedence.
      * @since 0.0.4
      */
-    public inline static function merge<K, V>(map:IMap<K, V>, otherMap:IMap<K, V>):Map<K, V> {
+    public static function merge<K, V>(map:IMap<K, V>, otherMap:IMap<K, V>):Map<K, V> {
         var result:Map<K, V> = cast map.copy();
 
         for (k => v in otherMap) {
@@ -109,7 +108,7 @@ class MapTools {
      * @return A new map containing the same keys and values. Referenced values are not cloned.
      * @since 0.0.4
      */
-    public inline static function clone<K, V>(map:IMap<K, V>):Map<K, V> {
+    public static function clone<K, V>(map:IMap<K, V>):Map<K, V> {
         var copy:Map<K, V> = cast map.copy(); // Shallow copy
         return copy;
     }
@@ -132,7 +131,7 @@ class MapTools {
      * @since 0.0.4
      */
     @:generic
-    public inline static function invert<K, V>(map:IMap<K, V>):Map<V, K> {
+    public static function invert<K, V>(map:IMap<K, V>):Map<V, K> {
         var result = new Map<V, K>();
 
         for (k => v in map)
@@ -155,7 +154,7 @@ class MapTools {
      * @return `true` if the map contains at least one entry; otherwise, `false`.
      * @since 0.0.4
      */
-    public inline static function hasItems<K, V>(map:IMap<K, V>):Bool
+    public static function hasItems<K, V>(map:IMap<K, V>):Bool
         return map.keys().hasNext() && map != null;
 
     /**
@@ -174,7 +173,7 @@ class MapTools {
      * @return A new array containing the results of `f` for each entry.
      * @since 0.0.4
      */
-    public inline static function toArray<K, V, T>(map:IMap<K, V>, f:(K, V)->T):Array<T> {
+    public static function toArray<K, V, T>(map:IMap<K, V>, f:(K, V)->T):Array<T> {
         var result = [];
 
         for (k in map.keys())
@@ -197,7 +196,7 @@ class MapTools {
      * @return A new array containing the map's keys.
      * @since 0.0.4
      */
-    public inline static function keysArray<K, V>(map:IMap<K, V>):Array<K> {
+    public static function keysArray<K, V>(map:IMap<K, V>):Array<K> {
         var result = [];
 
         for (k in map.keys())
@@ -220,7 +219,7 @@ class MapTools {
      * @return A new array containing the map's values, or an empty array if the map is empty.
      * @since 0.0.4
      */
-    public inline static function valuesArray<K, V>(map:IMap<K, V>):Array<V> {
+    public static function valuesArray<K, V>(map:IMap<K, V>):Array<V> {
         if (!hasItems(map)) return [];
 
         var result = [];
@@ -248,7 +247,7 @@ class MapTools {
      * @return The original map.
      * @since 0.0.4
      */
-    public inline static function removeDead<K, V>(map:IMap<K, V>):Map<K, V> {
+    public static function removeMapDead<K, V>(map:IMap<K, V>):Map<K, V> {
         if (hasItems(map) && isMapValuesOf(map, FlxBasic)) {
             for (k in map.keys()) {
                 var value = map.get(k);
@@ -276,7 +275,7 @@ class MapTools {
      * @since 0.0.4
      */
     @:generic
-    public inline static function filter<K, V>(map:IMap<K, V>, f:(K, V)->Bool):Map<K, V> {
+    public static function filter<K, V>(map:IMap<K, V>, f:(K, V)->Bool):Map<K, V> {
         var result = new Map<K, V>();
 
         for (k in map.keys()) {
@@ -304,7 +303,7 @@ class MapTools {
      * @since 0.0.4
      */
     @:generic
-    public inline static function mapValues<K, V, R>(map:IMap<K, V>, f:V->R):Map<K, R> {
+    public static function mapValues<K, V, R>(map:IMap<K, V>, f:V->R):Map<K, R> {
         var result = new Map<K, R>();
         for (k in map.keys())
             result.set(k, f(map.get(k)));
