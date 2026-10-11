@@ -1,45 +1,27 @@
 # custom-tools
 
-A lightweight Haxe utility library focused on common array operations.
-
-This project is intentionally small and simple, designed as a straightforward haxelib package for reusable array helpers. It currently provides a static utility class, `ArrayTools`, with helpers for reading, mutating, filtering, and sampling arrays in a clean and concise way.
-
-## Features
-
-- `firstItem()` / `lastItem()`
-- `hasItems()`
-- `shuffle()`
-- `randomItem()`
-- `sum()` / `sub()`
-- `nextItem()` / `previousItem()`
-- `isArrayOf()`
-- `clear()`
-- `find()`
-- `sample()`
-- `pluck()`
-- `unique()`
-- `flatten()`
-- `without()`
-- Optional Flixel-aware helpers such as `removeDead()` when `flixel` is enabled
+A small Haxe utility library with helpers for working with arrays and maps. The project is available as a haxelib and currently provides two utility classes: `ArrayTools` and `MapTools`.
 
 ## Installation
 
-If you want to install it as a haxelib package:
+Install the library directly from GitHub:
 
 ```bash
 haxelib git custom-tools https://github.com/pedrinducavalo/custom-tools
 ```
 
-If you are working from a local checkout:
+To use a local checkout during development:
+
 ```bash
 haxelib dev custom-tools .
 ```
 
 ## Usage
 
-You can use `ArrayTools` as a standard static class or extend Haxe arrays natively using the `using` keyword.
+Both utility classes can be used as extension methods with Haxe's `using` keyword, or called as regular static methods.
 
-### Using Static Extensions (Recommended)
+### ArrayTools
+
 ```haxe
 using ArrayTools;
 
@@ -52,47 +34,57 @@ class Main {
         trace(values.hasItems());  // true
         trace(values.unique());    // [1, 2, 3, 4]
         trace(values.sum());       // 17
-        trace(values.sample(2));   // 2 random items
+        trace(values.sample(2));   // 2 randomly selected items
     }
 }
 ```
 
-### Traditional Static Calls
+Static calls are also supported:
+
 ```haxe
 import ArrayTools;
 
+var first = ArrayTools.firstItem([10, 20, 30]); // 10
+```
+
+`ArrayTools` includes helpers for retrieving items, checking and shuffling arrays, random selection, numeric operations, finding and transforming items, flattening nested arrays, and removing values.
+
+### MapTools
+
+```haxe
+using MapTools;
+
 class Main {
     static function main() {
-        var values = [1, 2, 3, 4];
+        var ages = ["Ada" => 37, "Linus" => 54];
 
-        trace(ArrayTools.firstItem(values));           // 1
-        trace(ArrayTools.lastItem(values));            // 4
-        trace(ArrayTools.hasItems(values));            // true
-        trace(ArrayTools.unique([1, 2, 1, 3]));        // [1, 2, 3]
-        trace(ArrayTools.sample([10, 20, 30, 40], 2)); // 2 random items
-        trace(ArrayTools.sum([1, 2, 3]));              // 6
+        trace(ages.getOrElse("Ada", 0)); // 37
+        trace(ages.hasItems());          // true
+
+        var adults = ages.filter(function(name, age) return age >= 18);
+        var labels = ages.mapValues(function(age) return "Age: " + age);
+        var names = ages.keysArray();    // ["Ada", "Linus"]
+        var values = ages.valuesArray(); // [37, 54]
     }
 }
 ```
 
-## Flixel Support
+`MapTools` includes helpers for default lookups and insertion, merging and cloning maps, inverting keys and values, filtering and transforming entries, converting map contents to arrays, and checking key and value types.
 
-Some methods are compatible with Flixel when the `flixel` flag is enabled (automatic in HaxeFlixel projects or via `Project.xml`):
+## Flixel support
+
+When compiled with the `flixel` define, the library enables Flixel-specific behavior:
+
+- `ArrayTools.randomItem()` uses Flixel's random number generator.
+- `ArrayTools.clear()` destroys `FlxBasic` items before clearing the array.
+- `ArrayTools.removeDead()` removes and destroys inactive or nonexistent `FlxBasic` items.
+- `MapTools.removeDead()` removes and destroys map values when all values are `FlxBasic` instances.
+
+In HaxeFlixel projects, the `flixel` define is typically provided by the project configuration. It can also be enabled explicitly:
 
 ```bash
 haxe --define flixel build.hxml
 ```
-
-This enables specific behaviors, such as cleaning up dead or inactive `FlxBasic` objects from memory:
-
-```haxe
-using ArrayTools;
-
-// Removes and destroys inactive objects, sprites, or group members automatically
-myFlixelArray.removeDead(); 
-```
-
-It also safely redirects `randomItem()` to use Flixel's internal random number generator (`FlxG.random.getObject`).
 
 ## License
 
@@ -100,8 +92,8 @@ This project is licensed under the MIT License.
 
 ## Status
 
-This is a minimal haxelib project and is currently focused on utility helpers for arrays. It is a good foundation for future additions as the library grows.
+`custom-tools` is a simple haxelib project. Its current utilities focus on common array and map operations.
 
 ## Contributing
 
-Contributions are welcome. If you want to expand this library, keep the API consistent, simple, and lightweight so it remains easy to use in Haxe projects.
+Contributions are welcome. Please keep additions lightweight and consistent with the existing API.
