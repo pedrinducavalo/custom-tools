@@ -6,6 +6,6 @@
     "description": "Custom class tools for haxe.",
     "version": "0.0.5",
     "classPath": "source/",
-    "releasenote": "Some additions to ArrayTools.",
+    "releasenote": "Add EnumTools and CustomTools to the project",
     "contributors": ["dre"]
 }
