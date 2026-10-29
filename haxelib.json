@@ -4,8 +4,7 @@
     "license": "MIT",
     "tags": ["utilities", "tools"],
     "description": "Custom class tools for haxe.",
-    "version": "0.0.5",
-    "classPath": "source/",
-    "releasenote": "Add EnumTools and CustomTools to the project",
+    "version": "0.0.8",
+    "releasenote": "ArrayTools reworked and brand-new FloatTools",
     "contributors": ["dre"]
 }
