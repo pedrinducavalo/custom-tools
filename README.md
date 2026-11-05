@@ -2,10 +2,6 @@
 
 Haxe utility extensions for arrays, maps, enums, and floating-point values. The library currently provides `ArrayTools`, `MapTools`, `EnumTools`, and `FloatTools` in the `tools` package.
 
-## Release 0.0.8
-
-The release note in `haxelib.json` for version `0.0.8` is: **“ArrayTools reworked and brand-new FloatTools”**. This release reworks the array helpers and adds floating-point utilities.
-
 ## Installation
 
 Install the published haxelib:
