@@ -4,7 +4,7 @@
     "license": "MIT",
     "tags": ["utilities", "tools"],
     "description": "Custom class tools for haxe.",
-    "version": "0.0.8",
-    "releasenote": "ArrayTools reworked and brand-new FloatTools",
+    "version": "0.0.9",
+    "releasenote": "Minor fixes",
     "contributors": ["dre"]
 }
