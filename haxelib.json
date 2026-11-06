@@ -4,7 +4,7 @@
     "license": "MIT",
     "tags": ["utilities", "tools"],
     "description": "Custom class tools for haxe.",
-    "version": "0.0.9",
-    "releasenote": "Minor fixes",
+    "version": "0.1.0",
+    "releasenote": "Removed methods that conflict with Lambda extensions",
     "contributors": ["dre"]
 }

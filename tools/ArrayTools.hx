@@ -44,7 +44,7 @@ final class ArrayTools
 		while (hasItems(array))
 		{
 			#if flixel
-			var flx:FlxBasic = array.pop();
+			var flx:FlxBasic = cast array.pop();
 			flx.destroy();
 			#else
 			array.pop();
@@ -203,21 +203,6 @@ final class ArrayTools
 	#end
 	
 	/**
-		Returns the first element that matches a predicate.
-		@param array The array to search.
-		@param predicate The condition to test for each element.
-		@return The first matching element, or `null` if there is no match.
-	**/
-	public static function find<T>(array:Array<T>, predicate:T->Bool):Null<T>
-	{
-		for (i in array)
-		{
-			if (predicate(i)) return i;
-		}
-		return null;
-	}
-	
-	/**
 		Selects up to `n` random elements without replacement, leaving the source array unchanged.
 		@param array The array to sample.
 		@param n The maximum number of elements to select.
@@ -268,29 +253,6 @@ final class ArrayTools
 			{
 				seen.set(i, true);
 				result.push(i);
-			}
-		}
-		
-		return result;
-	}
-	
-	/**
-		Concatenates one level of nested arrays.
-		@param array The nested arrays to flatten.
-		@return A new array containing the elements of each inner array in order.
-	**/
-	public static function flatten<T>(array:Array<Array<T>>):Array<T>
-	{
-		if (!hasItems(array)) return [];
-		
-		var result = [];
-		
-		for (s in array)
-		{
-			if (hasItems(s))
-			{
-				for (i in s)
-					result.push(i);
 			}
 		}
 		

@@ -2,6 +2,12 @@
 
 Haxe utility extensions for arrays, maps, enums, and floating-point values. The library currently provides `ArrayTools`, `MapTools`, `EnumTools`, and `FloatTools` in the `tools` package.
 
+## Lambda compatibility notice
+
+`ArrayTools.find()`, `ArrayTools.flatten()`, and `MapTools.filter()` were removed in version 0.1.0 because their names conflict with methods from Haxe's standard `Lambda` class when using extensions. For those operations, use `using Lambda;` and call the corresponding `Lambda` methods instead.
+
+This notice applies to version 0.1.0 and all future versions: these methods will remain removed through the end of the project.
+
 ## Installation
 
 Install the published haxelib:
@@ -77,11 +83,9 @@ Array retrieval, transformation, numeric, and cleanup helpers.
 | `previousItem<T>(array, curItem = 0, wrap = false):Null<T>` | Returns `null` for an empty array. In the current implementation, returns the last element when `curItem` is not the last index and `wrap` is `true`; at the last index, returns the element before it. |
 | `isArrayOf<T>(array, type):Null<Bool>` | Returns whether every element is an instance of `type`; returns `null` for an empty array. |
 | `removeArrayDead<T:FlxBasic>(array):Void` | *(With `flixel`)* Removes and destroys elements whose `alive` or `exists` flag is false. |
-| `find<T>(array, predicate):Null<T>` | Returns the first element for which `predicate` returns `true`, or `null` if none matches. |
 | `sample<T>(array, n):Array<T>` | Returns up to `n` randomly selected elements without replacement; the source array is not modified. |
 | `pluck<T, V>(array, key):Array<V>` | Returns the value of the named reflected field from each element. |
 | `unique<T>(array):Array<T>` | Returns an array containing each distinct value once, preserving its first occurrence. |
-| `flatten<T>(array:Array<Array<T>>):Array<T>` | Concatenates the nested arrays into one array. |
 | `without<T>(array, values):Array<T>` | Removes the specified values from the original array and returns that same array. |
 | `hasItems<T>(array):Bool` | Returns whether the array contains at least one element. |
 
@@ -103,7 +107,6 @@ Lookup, copying, transformation, and inspection helpers for `haxe.Constraints.IM
 | `keysArray<K, V>(map):Array<K>` | Returns the map keys as an array. |
 | `valuesArray<K, V>(map):Array<V>` | Returns the map values as an array. |
 | `removeMapDead<K, V>(map):Map<K, V>` | *(With `flixel`)* If all values are `FlxBasic` instances, removes every entry and destroys its value. |
-| `filter<K, V>(map, f):Map<K, V>` | Returns a new map containing non-null entries for which `f(key, value)` is `true`. |
 | `mapValues<K, V, R>(map, f):Map<K, R>` | Returns a new map with each non-null value transformed by `f`; keys are preserved. |
 | `isMapKeysOf<K, V>(map, type):Null<Bool>` | Checks whether all keys are instances of `type`; returns `null` for an empty map. |
 | `isMapValuesOf<K, V>(map, type):Null<Bool>` | Checks whether all values are instances of `type`; returns `null` for an empty map. |

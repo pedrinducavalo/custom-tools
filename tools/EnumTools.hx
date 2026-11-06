@@ -50,7 +50,7 @@ final class EnumTools
 	**/
 	public static function fromIndex<T>(e:Enum<T>, index:Int, ?defaultValue:T):Null<T>
 	{
-		if (e == null || (index < 0 || index == null)) return defaultValue;
+		if (index < 0) return defaultValue;
 		
 		var constructs = Type.getEnumConstructs(e);
 		if (index < constructs.length) return Type.createEnum(e, constructs[index]);

@@ -164,7 +164,7 @@ final class MapTools
 		{
 			for (k in map.keys())
 			{
-				var value = map.get(k);
+				var value = cast map.get(k);
 				map.remove(k);
 				value.destroy();
 			}
@@ -172,26 +172,6 @@ final class MapTools
 		return cast map;
 	}
 	#end
-	
-	@:generic
-	/**
-		Creates a map containing the non-null entries accepted by a predicate.
-		@param map The map to filter.
-		@param f Returns whether a key and value should be included.
-		@return A new map containing the matching non-null entries.
-	**/
-	public static function filter<K, V>(map:IMap<K, V>, f:(K, V) -> Bool):Map<K, V>
-	{
-		var result = new Map<K, V>();
-		
-		for (k in map.keys())
-		{
-			var value = map.get(k);
-			if (value != null && f(k, value)) result.set(k, value);
-		}
-		
-		return result;
-	}
 	
 	@:generic
 	/**

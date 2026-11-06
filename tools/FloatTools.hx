@@ -1,8 +1,5 @@
 package tools;
 
-#if cpp
-@:cppInclude('cmath')
-#end
 @:nullSafety(Strict)
 /**
 	Extension methods for common floating-point operations.
@@ -35,10 +32,8 @@ class FloatTools
 	{
 		#if cs
 		return cs.system.Math.Clamp(float, min, max);
-		#elseif cpp
-		return untyped __cpp__('std::clamp({0}, {1}, {2})', float, min, max);
 		#else
-		return Math.max(min, Math.min(max, float));
+		return (float < min) ? min : ((float > max) ? max : float);
 		#end
 	}
 	
@@ -87,13 +82,9 @@ class FloatTools
 	**/
 	public static inline function lerp(a:Float, b:Float, t:Float):Float
 	{
-		#if cpp
-		// std::lerp requer c++20. Caso o hxcpp use uma versão anterior,
-		// o compilador C++ acusará erro. Esta linha assume C++20 ativo.
-		return untyped __cpp__('std::lerp({0}, {1}, {2})', a, b, t);
-		#elseif cs
-		return (cs.system.MathF.Lerp((cast a : cs.StdTypes.Float32), (cast b : cs.StdTypes.Float32),
-			(cast t : cs.StdTypes.Float32)));
+		#if cs
+		return cs.system.MathF.Lerp((cast a : cs.StdTypes.Float32), (cast b : cs.StdTypes.Float32),
+			(cast t : cs.StdTypes.Float32));
 		#else
 		return a + (b - a) * t;
 		#end
