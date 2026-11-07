@@ -1,6 +1,6 @@
 # custom-tools
 
-Haxe utility extensions for arrays, maps, enums, and floating-point values. The library currently provides `ArrayTools`, `MapTools`, `EnumTools`, and `FloatTools` in the `tools` package.
+Haxe utility extensions for arrays, maps, enums, floating-point values, and colors. The library provides `ArrayTools`, `MapTools`, `EnumTools`, `FloatTools`, and `ColorTools` in the `tools` package, plus frame-time helpers in `tools.utils.FPSUtil`.
 
 ## Lambda compatibility notice
 
@@ -28,6 +28,7 @@ Import each tool class as a Haxe extension using `using`:
 
 ```haxe
 using tools.ArrayTools;
+using tools.ColorTools;
 using tools.EnumTools;
 using tools.FloatTools;
 using tools.MapTools;
@@ -51,6 +52,8 @@ class Main {
         trace(Color.fromIndex(1)); // Green
 
         trace(3.14159.roundToDecimal(2)); // 3.14
+        var color = ColorTools.fromRgb(255, 64, 32);
+        trace(color.getRed()); // 255
     }
 }
 ```
@@ -152,8 +155,11 @@ Floating-point comparison, range, rounding, interpolation, and sign helpers.
 | `roundToDecimal(float, decimals):Float` | Rounds to the requested number of decimal places. |
 | `floorToDecimal(float, decimals):Float` | Rounds down to the requested number of decimal places. |
 | `ceilToDecimal(float, decimals):Float` | Rounds up to the requested number of decimal places. |
-| `lerp(a, b, t):Float` | Linearly interpolates from `a` to `b` using `t` (`0` gives `a`, `1` gives `b`). |
+| `lerp(a, b, t):Float` | Interpolates from `a` toward `b` using a clamped, frame-rate-adjusted ratio. |
 | `sign(float):Int` | Returns `1` for positive values, `-1` for negative values, and `0` for zero. |
+| `min(float, other):Float` | Returns the smaller of the two values. |
+| `max(float, other):Float` | Returns the larger of the two values. |
+| `randomSign():Int` | Returns `-1`, `0`, or `1`, each with equal probability. |
 
 Example:
 
@@ -162,8 +168,34 @@ using tools.FloatTools;
 
 var limited = 12.5.clamp(0, 10); // 10
 var close = 1.0.nearEquals(1.000001); // true
-var midpoint = 10.0.lerp(20.0, 0.5); // 15
+var next = 10.0.lerp(20.0, 0.5); // Moves toward 20 using the current frame time
 ```
+
+`lerp()` adjusts its interpolation ratio using `FPSUtil.getDeltaTime()`, so it is intended for frame-by-frame interpolation rather than calculating a frame-independent midpoint.
+
+### `tools.ColorTools`
+
+ARGB color creation, interpolation, and channel-reading helpers.
+
+| Method | Description |
+| --- | --- |
+| `lerpColor(color1, color2, ratio):Int` | Interpolates between two ARGB colors using a frame-rate-adjusted ratio clamped to `0-1`. |
+| `fromRgb(r, g, b):Int` | Creates an opaque ARGB color; each channel is clamped to `0-255`. |
+| `getAlpha(color):Float` | Returns the alpha channel as a value from `0` to `255`. |
+| `getRed(color):Float` | Returns the red channel as a value from `0` to `255`. |
+| `getGreen(color):Float` | Returns the green channel as a value from `0` to `255`. |
+| `getBlue(color):Float` | Returns the blue channel as a value from `0` to `255`. |
+
+Use the channel getters as extensions with `using tools.ColorTools;`. The interpolation ratio uses the frame time provided by `tools.utils.FPSUtil`.
+
+### `tools.utils.FPSUtil`
+
+Frame-time helpers used by frame-rate-adjusted interpolation.
+
+| Method | Description |
+| --- | --- |
+| `getDeltaTime():Float` | Returns the current frame duration in seconds from Flixel, Ceramic, or Heaps when their compile-time define is enabled; otherwise defaults to `1/60`. |
+| `getFPSRatio(ratio, ?delta):Float` | Adjusts a 60-FPS interpolation ratio for the supplied frame duration, or the current frame duration when omitted. |
 
 ## HaxeFlixel support
 
