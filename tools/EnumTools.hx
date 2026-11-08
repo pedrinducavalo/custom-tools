@@ -1,12 +1,10 @@
 package tools;
 
-@:nullSafety
-
 /**
  * Reflection helpers for enum types and values.
  */
+@:nullSafety
 final class EnumTools
-
 {
 	/**
 	 * Creates an `EnumTools` instance. This constructor is not intended for public use.

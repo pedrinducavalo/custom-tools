@@ -4,13 +4,11 @@ package tools;
 import flixel.FlxBasic;
 #end
 
-@:nullSafety(Strict)
-
 /**
  * Extension methods for reading, transforming, and managing arrays.
  */
+@:nullSafety
 final class ArrayTools
-
 {
 	/**
 	 * Creates an `ArrayTools` instance. This constructor is not intended for public use.
@@ -101,9 +99,9 @@ final class ArrayTools
 		
 		if (bool)
 		{
-			for (i in 0...array.length + 1)
+			for (i in 1...array.length)
 			{
-				total -= (i < array.length) ? (cast array[i] : Dynamic) : 0;
+				total -= cast array[i];
 			}
 		}
 		else

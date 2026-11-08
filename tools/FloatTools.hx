@@ -2,13 +2,11 @@ package tools;
 
 import tools.utils.FPSUtil;
 
-@:nullSafety
-
 /**
  * Extension methods for common floating-point operations.
  */
+@:nullSafety
 final class FloatTools
-
 {
 	/**
 	 * Creates a `FloatTools` instance. This constructor is not intended for public use.
@@ -37,11 +35,7 @@ final class FloatTools
 	 */
 	public static inline function clamp(float:Float, min:Float, max:Float):Float
 	{
-		#if cs
-		return cs.system.Math.Clamp(float, min, max);
-		#else
 		return (float < min) ? min : ((float > max) ? max : float);
-		#end
 	}
 	
 	/**
@@ -81,13 +75,26 @@ final class FloatTools
 	}
 	
 	/**
-	 * Interpolates toward a target using a per-frame factor adjusted for frame time.
+	 * Linearly interpolates between two numbers.
 	 * @param a The starting value.
 	 * @param b The ending value.
-	 * @param t The interpolation factor per 60 FPS frame, clamped to the range 0-1.
-	 * @return The interpolated value; `0` returns `a` and `1` returns `b`.
+	 * @param t The interpolation factor, clamped to the range 0-1.
+	 * @return The interpolated value.
 	 */
 	public static inline function lerp(a:Float, b:Float, t:Float):Float
+	{
+		return a + (b - a) * clamp(t, 0, 1);
+	}
+	
+	/**
+	 * Interpolates toward a target with a factor adjusted for the current frame time.
+	 * The result is independent of frame rate when called once per frame with a consistent `t`.
+	 * @param a The starting value.
+	 * @param b The target value.
+	 * @param t The interpolation factor for a 60 FPS frame, clamped to the range 0-1.
+	 * @return The frame-time-adjusted interpolated value.
+	 */
+	public static inline function fixedLerp(a:Float, b:Float, t:Float):Float
 	{
 		return a + (b - a) * FPSUtil.getFPSRatio(clamp(t, 0, 1));
 	}

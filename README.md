@@ -1,6 +1,6 @@
 # custom-tools
 
-Haxe utility extensions for arrays, maps, enums, floating-point values, and colors. The library provides `ArrayTools`, `MapTools`, `EnumTools`, `FloatTools`, and `ColorTools` in the `tools` package, plus frame-time helpers in `tools.utils.FPSUtil`.
+Haxe utility extensions for arrays, maps, enums, integers, floating-point values, and colors. The library provides `ArrayTools`, `MapTools`, `EnumTools`, `IntTools`, `FloatTools`, and `ColorTools` in the `tools` package, plus frame-time helpers in `tools.utils.FPSUtil`.
 
 ## Lambda compatibility notice
 
@@ -31,6 +31,7 @@ using tools.ArrayTools;
 using tools.ColorTools;
 using tools.EnumTools;
 using tools.FloatTools;
+using tools.IntTools;
 using tools.MapTools;
 
 enum Color {
@@ -52,6 +53,7 @@ class Main {
         trace(Color.fromIndex(1)); // Green
 
         trace(3.14159.roundToDecimal(2)); // 3.14
+        trace(42.clamp(0, 10)); // 10
         var color = ColorTools.fromRgb(255, 64, 32);
         trace(color.getRed()); // 255
     }
@@ -144,6 +146,18 @@ var direction = Direction.fromIndex(1); // South
 var index = Direction.East.toIndex(); // 2
 ```
 
+### `tools.IntTools`
+
+Integer range, comparison, and sign helpers.
+
+| Method | Description |
+| --- | --- |
+| `clamp(int, min, max):Int` | Restricts the value to the inclusive `[min, max]` range. |
+| `min(int, other):Int` | Returns the smaller of the two integers. |
+| `max(int, other):Int` | Returns the larger of the two integers. |
+| `sign(int):Int` | Returns `1` for positive values, `-1` for negative values, and `0` for zero. |
+| `randomSign():Int` | Returns `-1` or `1`, each with equal probability. |
+
 ### `tools.FloatTools`
 
 Floating-point comparison, range, rounding, interpolation, and sign helpers.
@@ -155,7 +169,8 @@ Floating-point comparison, range, rounding, interpolation, and sign helpers.
 | `roundToDecimal(float, decimals):Float` | Rounds to the requested number of decimal places. |
 | `floorToDecimal(float, decimals):Float` | Rounds down to the requested number of decimal places. |
 | `ceilToDecimal(float, decimals):Float` | Rounds up to the requested number of decimal places. |
-| `lerp(a, b, t):Float` | Interpolates from `a` toward `b` using a clamped, frame-rate-adjusted ratio. |
+| `lerp(a, b, t):Float` | Linearly interpolates from `a` to `b` using a clamped `t` (`0` gives `a`, `1` gives `b`). |
+| `fixedLerp(a, b, t):Float` | Interpolates toward `b` using a clamped, frame-time-adjusted ratio. |
 | `sign(float):Int` | Returns `1` for positive values, `-1` for negative values, and `0` for zero. |
 | `min(float, other):Float` | Returns the smaller of the two values. |
 | `max(float, other):Float` | Returns the larger of the two values. |
@@ -168,10 +183,11 @@ using tools.FloatTools;
 
 var limited = 12.5.clamp(0, 10); // 10
 var close = 1.0.nearEquals(1.000001); // true
-var next = 10.0.lerp(20.0, 0.5); // Moves toward 20 using the current frame time
+var midpoint = 10.0.lerp(20.0, 0.5); // 15
+var next = 10.0.fixedLerp(20.0, 0.5); // Moves toward 20 using the current frame time
 ```
 
-`lerp()` adjusts its interpolation ratio using `FPSUtil.getDeltaTime()`, so it is intended for frame-by-frame interpolation rather than calculating a frame-independent midpoint.
+Use `lerp()` for regular linear interpolation and `fixedLerp()` for frame-by-frame interpolation adjusted by `FPSUtil.getDeltaTime()`.
 
 ### `tools.ColorTools`
 

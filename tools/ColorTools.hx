@@ -3,13 +3,11 @@ package tools;
 import tools.FloatTools;
 import tools.utils.FPSUtil;
 
-@:nullSafety
-
 /**
  * Utility methods for creating, interpolating, and reading ARGB colors.
  */
+@:nullSafety
 final class ColorTools
-
 {
 	/**
 	 * Interpolates between two ARGB colors using a frame-rate-adjusted ratio.

@@ -6,13 +6,11 @@ import haxe.Constraints.IMap;
 import flixel.FlxBasic;
 #end
 
-@:nullSafety(Strict)
-
 /**
  * Extension methods for looking up, copying, transforming, and inspecting maps.
  */
+@:nullSafety
 final class MapTools
-
 {
 	/**
 	 * Creates a `MapTools` instance. This constructor is not intended for public use.
@@ -161,7 +159,7 @@ final class MapTools
 	 * @param map The map of Flixel objects to clear.
 	 * @return The same map after cleanup.
 	 */
-	public static function removeMapDead<K, V>(map:IMap<K, V>):Map<K, V>
+	public static function removeMapDead<K, V>(map:IMap<K, V>)
 	{
 		if (hasItems(map) && isMapValuesOf(map, FlxBasic))
 		{
@@ -172,7 +170,6 @@ final class MapTools
 				value.destroy();
 			}
 		}
-		return cast map;
 	}
 	#end
 	
