@@ -70,4 +70,116 @@ final class IntTools
 	{
 		return Std.random(2) * 2 - 1; // sempre 1 ou -1, nunca zero
 	}
+
+	/**
+	 * Checks whether an integer is divisible by two.
+	 * @param int The integer to check.
+	 * @return `true` if the integer is even.
+	 */
+	public static inline function isEven(int:Int):Bool
+	{
+		return int % 2 == 0;
+	}
+
+	/**
+	 * Checks whether an integer is not divisible by two.
+	 * @param int The integer to check.
+	 * @return `true` if the integer is odd.
+	 */
+	public static inline function isOdd(int:Int):Bool
+	{
+		return !isEven(int);
+	}
+
+	/**
+	 * Wraps an integer outside the given bounds to the opposite bound.
+	 * Values already within the bounds are returned unchanged.
+	 * @param int The integer to wrap.
+	 * @param min The lower bound.
+	 * @param max The upper bound.
+	 * @return `max` if `int` is below `min`, `min` if it is above `max`, or `int` otherwise.
+	 */
+	public static inline function wrap(int:Int, min:Int, max:Int):Int
+	{
+		if (int < min) int = max;
+		if (int > max) int = min;
+		return int;
+	}
+
+	/**
+	 * Advances an integer to the next index in a zero-based sequence, wrapping at `max`.
+	 * @param int The current index.
+	 * @param max The number of indices in the sequence.
+	 * @return The next index in the range from 0 to `max - 1`.
+	 */
+	public static inline function loop(int:Int, max:Int):Int
+	{
+		return ((int + 1) % max + max) % max;
+	}
+
+	/**
+	 * Checks whether an integer falls within a range.
+	 * @param int The integer to check.
+	 * @param min The lower bound.
+	 * @param max The upper bound.
+	 * @param inclusive Whether the bounds are included; defaults to `true`.
+	 * @return `true` if `int` is within the range according to `inclusive`.
+	 */
+	public static inline function between(int:Int, min:Int, max:Int, inclusive:Bool = true):Bool
+	{
+		return (inclusive) ? int >= min && int <= max : int > min && int < max;
+	}
+
+	/**
+	 * Returns the absolute value of an integer.
+	 * @param int The integer to convert.
+	 * @return The non-negative magnitude of `int`.
+	 */
+	public static inline function abs(int:Int):Int
+	{
+		return int < 0 ? -int : int;
+	}
+
+	/**
+	 * Counts the decimal digits in an integer, excluding its sign.
+	 * @param int The integer to inspect.
+	 * @return The number of decimal digits; returns `1` for zero.
+	 */
+	public static inline function digits(int:Int):Int
+	{
+		if (int == 0) return 1;
+
+		var n = abs(int);
+		var count = 0;
+
+		while (n > 0)
+		{
+			n = Std.int(n / 10);
+			count++;
+		}
+		return count;
+	}
+
+	/**
+	 * Converts an integer to a string padded on the left to a minimum length.
+	 * @param int The integer to convert.
+	 * @param length The minimum resulting string length.
+	 * @param char The string used for padding; defaults to `"0"`.
+	 * @return The padded integer string.
+	 */
+	public static inline function padLeft(int:Int, length:Int, char:String = "0"):String
+	{
+		return StringTools.lpad(Std.string(int), char, length);
+	}
+
+	/**
+	 * Chooses a random integer from the inclusive range `min` to `max`.
+	 * @param min The lower bound.
+	 * @param max The upper bound.
+	 * @return A randomly selected integer in the range.
+	 */
+	public static inline function random(min:Int, max:Int):Int
+	{
+		return min + Std.random(max - min + 1);
+	}
 }

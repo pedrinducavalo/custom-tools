@@ -1,6 +1,6 @@
 # custom-tools
 
-Haxe utility extensions for arrays, maps, enums, integers, floating-point values, and colors. The library provides `ArrayTools`, `MapTools`, `EnumTools`, `IntTools`, `FloatTools`, and `ColorTools` in the `tools` package, plus frame-time helpers in `tools.utils.FPSUtil`.
+Haxe utility extensions for arrays, maps, enums, booleans, integers, floating-point values, and colors. The library provides `ArrayTools`, `MapTools`, `EnumTools`, `BoolTools`, `IntTools`, `FloatTools`, and `ColorTools` in the `tools` package, plus frame-time helpers in `tools.utils.FPSUtil`.
 
 ## Lambda compatibility notice
 
@@ -28,6 +28,7 @@ Import each tool class as a Haxe extension using `using`:
 
 ```haxe
 using tools.ArrayTools;
+using tools.BoolTools;
 using tools.ColorTools;
 using tools.EnumTools;
 using tools.FloatTools;
@@ -54,6 +55,7 @@ class Main {
 
         trace(3.14159.roundToDecimal(2)); // 3.14
         trace(42.clamp(0, 10)); // 10
+        trace(true.string("yes", "no")); // yes
         var color = ColorTools.fromRgb(255, 64, 32);
         trace(color.getRed()); // 255
     }
@@ -146,6 +148,16 @@ var direction = Direction.fromIndex(1); // South
 var index = Direction.East.toIndex(); // 2
 ```
 
+### `tools.BoolTools`
+
+Boolean conversion and transformation helpers.
+
+| Method | Description |
+| --- | --- |
+| `int(bool):Int` | Converts `true` to `1` and `false` to `0`. |
+| `toggle(bool):Bool` | Returns the opposite boolean value. |
+| `string(bool, ?yes, ?no):String` | Uses the custom strings when both are provided; otherwise returns the standard boolean string. |
+
 ### `tools.IntTools`
 
 Integer range, comparison, and sign helpers.
@@ -157,6 +169,15 @@ Integer range, comparison, and sign helpers.
 | `max(int, other):Int` | Returns the larger of the two integers. |
 | `sign(int):Int` | Returns `1` for positive values, `-1` for negative values, and `0` for zero. |
 | `randomSign():Int` | Returns `-1` or `1`, each with equal probability. |
+| `isEven(int):Bool` | Checks whether the integer is divisible by two. |
+| `isOdd(int):Bool` | Checks whether the integer is not divisible by two. |
+| `wrap(int, min, max):Int` | Returns `max` when below the range, `min` when above it, or the original value when in range. |
+| `loop(int, max):Int` | Advances to the next index, wrapping within a zero-based sequence of `max` items. |
+| `between(int, min, max, inclusive = true):Bool` | Checks whether the value falls within the bounds, optionally excluding them. |
+| `abs(int):Int` | Returns the absolute value. |
+| `digits(int):Int` | Returns the number of decimal digits, excluding the sign; zero has one digit. |
+| `padLeft(int, length, char = "0"):String` | Converts the integer to a string padded on the left to at least `length`. |
+| `random(min, max):Int` | Returns a random integer in the inclusive range. |
 
 ### `tools.FloatTools`
 
@@ -195,14 +216,16 @@ ARGB color creation, interpolation, and channel-reading helpers.
 
 | Method | Description |
 | --- | --- |
-| `lerpColor(color1, color2, ratio):Int` | Interpolates between two ARGB colors using a frame-rate-adjusted ratio clamped to `0-1`. |
+| `lerpColor(color1, color2, ratio):Int` | Interpolates between two ARGB colors using the supplied ratio directly; output channels are clamped to `0-255`. |
+| `fixedLerpColor(color1, color2, ratio):Int` | Interpolates using a frame-rate-adjusted ratio clamped to `0-1`. |
 | `fromRgb(r, g, b):Int` | Creates an opaque ARGB color; each channel is clamped to `0-255`. |
 | `getAlpha(color):Float` | Returns the alpha channel as a value from `0` to `255`. |
 | `getRed(color):Float` | Returns the red channel as a value from `0` to `255`. |
 | `getGreen(color):Float` | Returns the green channel as a value from `0` to `255`. |
 | `getBlue(color):Float` | Returns the blue channel as a value from `0` to `255`. |
+| `toString(color):String` | Converts the ARGB integer to its decimal string representation. |
 
-Use the channel getters as extensions with `using tools.ColorTools;`. The interpolation ratio uses the frame time provided by `tools.utils.FPSUtil`.
+Use the channel getters and `toString()` as extensions with `using tools.ColorTools;`. `fixedLerpColor()` uses the frame time provided by `tools.utils.FPSUtil`.
 
 ### `tools.utils.FPSUtil`
 
