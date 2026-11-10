@@ -1,13 +1,14 @@
 package tools.utils;
 
-@:nullSafety
-
 /**
  * Helpers for obtaining frame time and scaling interpolation ratios to the current frame rate.
  */
+@:nullSafety
 final class FPSUtil
-
 {
+	@:noCompletion
+	private function new() {}
+	
 	/**
 	 * Returns the elapsed time for the current frame using the active framework's timer.
 	 * Falls back to the duration of a 60 FPS frame when no supported framework is defined.
@@ -17,6 +18,8 @@ final class FPSUtil
 	{
 		#if flixel
 		return flixel.FlxG.elapsed;
+		#elseif haxepunk // nao faço ideia se isso funciona bru
+		return haxepunk.HXP.elapsed;
 		#elseif ceramic
 		return ceramic.App.app.delta;
 		#elseif heaps
@@ -34,6 +37,6 @@ final class FPSUtil
 	 */
 	public static inline function getFPSRatio(ratio:Float, ?delta:Float):Float
 	{
-		return 1 - Math.pow(1 - ratio, (delta == null ? getDeltaTime() : delta) * 60);
+		return 1 - Math.pow(1 - ratio, (delta != null ? delta : getDeltaTime()) * 60);
 	}
 }

@@ -1,5 +1,6 @@
-package tools;
+package tools.basic;
 
+import tools.math.EasingTools.EaseFunc;
 import tools.utils.FPSUtil;
 
 /**
@@ -8,11 +9,8 @@ import tools.utils.FPSUtil;
 @:nullSafety
 final class FloatTools
 {
-	/**
-	 * Creates a `FloatTools` instance. This constructor is not intended for public use.
-	 */
 	@:noCompletion
-	function new() {}
+	private function new() {}
 	
 	/**
 	 * Checks whether two numbers differ by no more than a tolerance.
@@ -97,6 +95,34 @@ final class FloatTools
 	public static inline function fixedLerp(a:Float, b:Float, t:Float):Float
 	{
 		return a + (b - a) * FPSUtil.getFPSRatio(clamp(t, 0, 1));
+	}
+	
+	/**
+	 * Interpolates between two numbers using an optional easing function.
+	 * @param a The starting value.
+	 * @param b The target value.
+	 * @param t The interpolation factor, clamped to the range 0-1.
+	 * @param ease The optional easing function applied to the clamped factor.
+	 * @return The interpolated value.
+	 */
+	public static inline function easeLerp(a:Float, b:Float, t:Float, ?ease:EaseFunc):Float
+	{
+		var clampedRatio = clamp(t, 0, 1);
+		return a + (b - a) * (ease != null ? ease(clampedRatio) : clampedRatio);
+	}
+	
+	/**
+	 * Interpolates between two numbers using a frame-time-adjusted factor and an optional easing function.
+	 * @param a The starting value.
+	 * @param b The target value.
+	 * @param t The per-frame interpolation factor, clamped to the range 0-1 before frame-time adjustment.
+	 * @param ease The optional easing function applied to the adjusted factor.
+	 * @return The interpolated value.
+	 */
+	public static inline function fixedEaseLerp(a:Float, b:Float, t:Float, ?ease:EaseFunc):Float
+	{
+		var clampedRatio = FPSUtil.getFPSRatio(clamp(t, 0, 1));
+		return a + (b - a) * (ease != null ? ease(clampedRatio) : clampedRatio);
 	}
 	
 	/**

@@ -1,4 +1,4 @@
-package tools;
+package tools.iterables;
 
 import haxe.Constraints.IMap;
 
@@ -12,11 +12,8 @@ import flixel.FlxBasic;
 @:nullSafety
 final class MapTools
 {
-	/**
-	 * Creates a `MapTools` instance. This constructor is not intended for public use.
-	 */
 	@:noCompletion
-	function new():Void {}
+	private function new() {}
 	
 	/**
 	 * Gets a value from a map or returns a fallback when the key is absent.
@@ -25,25 +22,26 @@ final class MapTools
 	 * @param defaultValue The value to return if the key does not exist.
 	 * @return The mapped value or the fallback value.
 	 */
-	public static function getOrElse<K, V>(map:IMap<K, V>, key:K,
-			defaultValue:V):Null<V> return (map.exists(key)) ? map.get(key) : defaultValue;
-			
+	public static function getOrElse<K, V>(map:IMap<K, V>, key:K, defaultValue:V):Null<V>
+	{
+		return (map.exists(key)) ? map.get(key) : defaultValue;
+	}
+	
 	/**
-	 * Gets a value from a map or creates and stores one when the key is absent.
+	 * Gets a value from a map or invokes a factory when the key is absent.
 	 * @param map The map to read and potentially modify.
 	 * @param key The key to look up or insert.
-	 * @param defaultFactory Creates the value to store when the key is absent.
-	 * @return The existing value or the newly created value.
+	 * @param defaultFactory The factory invoked when the key is absent; it must be provided for a missing key,
+	 * and a non-null result is stored in the map.
+	 * @return The existing value or the factory result.
 	 */
-	public static function getOrSet<K, V>(map:IMap<K, V>, key:K, defaultFactory:() -> V):Null<V>
+	public static function getOrSet<K, V>(map:IMap<K, V>, key:K, ?defaultFactory:() -> V):Null<V>
 	{
 		if (map.exists(key)) return map.get(key);
-		else
-		{
-			var result = defaultFactory();
-			map.set(key, result);
-			return result;
-		}
+		
+		var result = (defaultFactory != null) ? defaultFactory() : null;
+		if (result != null) map.set(key, result);
+		return result;
 	}
 	
 	/**
@@ -59,7 +57,6 @@ final class MapTools
 		for (k => v in otherMap)
 		{
 			if (result.exists(k)) result.remove(k);
-			
 			result.set(k, v);
 		}
 		
@@ -73,23 +70,25 @@ final class MapTools
 	 */
 	public static function clone<K, V>(map:IMap<K, V>):Map<K, V>
 	{
-		var copy:Map<K, V> = cast map.copy(); // Shallow copy
+		var copy:Map<K, V> = cast map.copy();
 		return copy;
 	}
 	
-	@:generic
 	/**
 	 * Creates a map with each value used as a key and its original key used as the value.
 	 * @param map The map to invert.
 	 * @return A new map with keys and values swapped.
 	 */
+	@:generic
 	public static function invert<K, V>(map:IMap<K, V>):Map<V, K>
 	{
 		var result = new Map<V, K>();
 		
 		for (k => v in map)
+		{
 			result.set(v, k);
-			
+		}
+		
 		return result;
 	}
 	
@@ -98,7 +97,10 @@ final class MapTools
 	 * @param map The map to check.
 	 * @return `true` if the map has at least one entry.
 	 */
-	public static function hasItems<K, V>(map:IMap<K, V>):Bool return map.keys().hasNext() && map != null;
+	public static function hasItems<K, V>(map:IMap<K, V>):Bool
+	{
+		return map.keys().hasNext() && map != null;
+	}
 	
 	/**
 	 * Converts map entries into an array, skipping entries whose value is `null`.
@@ -143,8 +145,6 @@ final class MapTools
 	 */
 	public static function valuesArray<K, V>(map:IMap<K, V>):Array<V>
 	{
-		if (!hasItems(map)) return [];
-		
 		var result = [];
 		
 		for (v in map)
@@ -155,9 +155,8 @@ final class MapTools
 	
 	#if flixel
 	/**
-	 * If every map value is a `FlxBasic`, removes all entries and destroys their values.
-	 * @param map The map of Flixel objects to clear.
-	 * @return The same map after cleanup.
+	 * If every map value is a `FlxBasic`, removes each entry and destroys its value.
+	 * @param map The map of Flixel objects to inspect and potentially clear.
 	 */
 	public static function removeMapDead<K, V>(map:IMap<K, V>)
 	{
@@ -173,13 +172,13 @@ final class MapTools
 	}
 	#end
 	
-	@:generic
 	/**
 	 * Creates a map with each non-null value transformed by a function.
 	 * @param map The map to transform.
 	 * @param f Transforms each non-null value.
 	 * @return A new map with the same keys and transformed non-null values.
 	 */
+	@:generic
 	public static function mapValues<K, V, R>(map:IMap<K, V>, f:V->R):Map<K, R>
 	{
 		var result = new Map<K, R>();
@@ -200,16 +199,14 @@ final class MapTools
 	 */
 	public static function isMapKeysOf<K, V>(map:IMap<K, V>, type:Dynamic):Null<Bool>
 	{
-		if (hasItems(map))
+		if (!hasItems(map)) return null;
+		
+		for (k in map.keys())
 		{
-			for (k in map.keys())
-			{
-				if (!Std.isOfType(k, type)) return false;
-			}
-			
-			return true;
+			if (!Std.isOfType(k, type)) return false;
 		}
-		return null;
+		
+		return true;
 	}
 	
 	/**
@@ -220,15 +217,13 @@ final class MapTools
 	 */
 	public static function isMapValuesOf<K, V>(map:IMap<K, V>, type:Dynamic):Null<Bool>
 	{
-		if (hasItems(map))
+		if (!hasItems(map)) return null;
+		
+		for (v in map)
 		{
-			for (v in map)
-			{
-				if (!Std.isOfType(v, type)) return false;
-			}
-			
-			return true;
+			if (!Std.isOfType(v, type)) return false;
 		}
-		return null;
+		
+		return true;
 	}
 }

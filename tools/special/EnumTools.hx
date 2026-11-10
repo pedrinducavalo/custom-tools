@@ -1,4 +1,4 @@
-package tools;
+package tools.special;
 
 /**
  * Reflection helpers for enum types and values.
@@ -6,11 +6,8 @@ package tools;
 @:nullSafety
 final class EnumTools
 {
-	/**
-	 * Creates an `EnumTools` instance. This constructor is not intended for public use.
-	 */
 	@:noCompletion
-	function new():Void {}
+	private function new() {}
 	
 	/**
 	 * Returns the constructor names of an enum.

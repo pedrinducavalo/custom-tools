@@ -1,4 +1,4 @@
-package tools;
+package tools.basic;
 
 /**
  * Utility methods for converting and transforming boolean values.
@@ -6,6 +6,9 @@ package tools;
 @:nullSafety
 final class BoolTools
 {
+	@:noCompletion
+	private function new() {}
+	
 	/**
 	 * Converts a boolean value to its integer representation.
 	 * @param bool The value to convert.
@@ -16,7 +19,7 @@ final class BoolTools
 		if (bool) return 1;
 		return 0;
 	}
-
+	
 	/**
 	 * Returns the opposite of a boolean value.
 	 * @param bool The value to toggle.
@@ -26,7 +29,7 @@ final class BoolTools
 	{
 		return !bool;
 	}
-
+	
 	/**
 	 * Converts a boolean to a string, optionally using custom text for each value.
 	 * @param bool The value to convert.
@@ -41,7 +44,7 @@ final class BoolTools
 			if (bool) return yes;
 			else return no;
 		}
-
+		
 		return Std.string(bool);
 	}
 }
