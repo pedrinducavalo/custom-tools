@@ -4,7 +4,7 @@
     "license": "MIT",
     "tags": ["utilities", "tools"],
     "description": "Custom class tools for haxe.",
-    "version": "0.2.0",
-    "releasenote": "Major release: reorganized utilities into basic, iterables, math, and special packages; added root namespace aliases, easing, geometry, time, and string tools; expanded interpolation, collection, and utility APIs.",
+    "version": "0.3.0",
+    "releasenote": "Major update: reorganized utilities under tools.classes; added physics calculators, Vector2/Size2/Rect, Color and Easing abstracts, and lifecycle/position interfaces; expanded boolean helpers, easing-aware interpolation, date/time formatting, and collection utilities.",
     "contributors": ["dre"]
 }

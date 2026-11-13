@@ -1,4 +1,4 @@
-package tools.iterables;
+package tools.classes.iterables;
 
 import haxe.Constraints.IMap;
 

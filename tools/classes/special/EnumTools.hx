@@ -1,4 +1,4 @@
-package tools.special;
+package tools.classes.special;
 
 /**
  * Reflection helpers for enum types and values.

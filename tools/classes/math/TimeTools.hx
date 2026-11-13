@@ -1,4 +1,4 @@
-package tools.math;
+package tools.classes.math;
 
 /**
  * Utility methods for formatting times and converting between common time units.
@@ -40,6 +40,35 @@ final class TimeTools
 	}
 	
 	/**
+	 * Formats a date using a common numeric date convention for the given locale.
+	 * @param day The day of the month.
+	 * @param month The month of the year.
+	 * @param year The year.
+	 * @param locale A locale tag such as `en-US`, `pt-BR`, `de-DE`, or `ja-JP`. Defaults to `en-US`.
+	 * @return The date formatted as month/day/year for `en-US`, year/month/day for Japanese or Chinese
+	 * locales (with slashes) and Korean locales (with dots), or day/month/year for other locales.
+	 * German and Russian locales use dots as separators.
+	 */
+	public static function formatDate(day:Int, month:Int, year:Int, locale:String = 'en-US'):String
+	{
+		var normalizedLocale = StringTools.replace(locale, '_', '-').toLowerCase();
+		var dayString = StringTools.lpad(Std.string(day), '0', 2);
+		var monthString = StringTools.lpad(Std.string(month), '0', 2);
+		var yearString = Std.string(year);
+		
+		if (normalizedLocale == 'en-us' || StringTools.startsWith(normalizedLocale, 'en-us-')) return '$month/$day/$year';
+		
+		if (StringTools.startsWith(normalizedLocale,
+			'ja') || StringTools.startsWith(normalizedLocale, 'zh')) return '$yearString/$monthString/$dayString';
+			
+		if (StringTools.startsWith(normalizedLocale, 'ko')) return '$yearString.$monthString.$dayString';
+		
+		var separator = StringTools.startsWith(normalizedLocale,
+			'de') || StringTools.startsWith(normalizedLocale, 'ru') ? '.' : '/';
+		return '$dayString$separator$monthString$separator$yearString';
+	}
+	
+	/**
 	 * Converts seconds to milliseconds.
 	 * @param seconds The duration in seconds.
 	 * @return The duration in milliseconds.
@@ -50,13 +79,14 @@ final class TimeTools
 	}
 	
 	/**
-	 * Converts minutes to seconds.
-	 * @param minutes The duration in minutes.
+	 * Converts minutes to seconds, or milliseconds to seconds when `inMs` is `true`.
+	 * @param time The duration in minutes, or milliseconds when `inMs` is `true`.
+	 * @param inMs Whether the input is in milliseconds instead of minutes.
 	 * @return The duration in seconds.
 	 */
-	public static inline function toSeconds(minutes:Float):Float
+	public static inline function toSeconds(time:Float, inMs:Bool = false):Float
 	{
-		return minutes * 60;
+		return (inMs) ? time / 1000 : time * 60;
 	}
 	
 	/**

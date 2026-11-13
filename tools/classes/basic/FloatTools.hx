@@ -1,6 +1,6 @@
-package tools.basic;
+package tools.classes.basic;
 
-import tools.math.EasingTools.EaseFunc;
+import tools.classes.math.EasingTools.EaseFunc;
 import tools.utils.FPSUtil;
 
 /**

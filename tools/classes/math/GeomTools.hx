@@ -1,4 +1,4 @@
-package tools.math;
+package tools.classes.math;
 
 /**
  * Utility methods for measuring distances, angles, and simple geometric overlap.
@@ -19,9 +19,7 @@ final class GeomTools
 	 */
 	public static inline function distance(x1:Float, y1:Float, x2:Float, y2:Float):Float
 	{
-		var dx = x2 - x1;
-		var dy = y2 - y1;
-		return Math.sqrt((dx * dx) + (dy * dy));
+		return Math.sqrt(distanceSq(x1, y1, x2, y2));
 	}
 	
 	/**

@@ -1,4 +1,4 @@
-package tools.basic;
+package tools.classes.basic;
 
 /**
  * Utility methods for common integer operations.

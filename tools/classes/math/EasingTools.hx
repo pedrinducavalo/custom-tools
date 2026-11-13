@@ -1,4 +1,4 @@
-package tools.math;
+package tools.classes.math;
 
 /**
  * Utility functions for easing interpolation progress along common curves.

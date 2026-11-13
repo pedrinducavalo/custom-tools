@@ -1,4 +1,4 @@
-package tools.special;
+package tools.classes.special;
 
 using StringTools; // que ironico, nao?
 
@@ -22,12 +22,13 @@ final class StringTools
 	}
 	
 	/**
-	 * Truncates a string when it exceeds a maximum length.
+	 * Truncates a string when its length exceeds a threshold. The threshold controls the prefix length, not the final
+	 * length when a suffix is appended.
 	 * @param str The string to truncate.
-	 * @param maxLength The maximum length threshold; values less than or equal to zero produce an empty string.
+	 * @param maxLength The length threshold and prefix limit; values less than or equal to zero produce an empty string.
 	 * @param suffix The text appended after truncation; defaults to `"..."`.
 	 * @return The original string if it fits, an empty string if `maxLength` is not positive, or the first
-	 * `maxLength - 1` characters followed by `suffix`.
+	 * `maxLength - 1` characters followed by `suffix`. The suffix can make the result longer than `maxLength`.
 	 */
 	public static inline function truncate(str:String, maxLength:Int, suffix:String = '...'):String
 	{

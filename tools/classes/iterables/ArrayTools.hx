@@ -1,6 +1,4 @@
-package tools.iterables;
-
-import tools.basic.IntTools;
+package tools.classes.iterables;
 
 #if flixel
 import flixel.FlxBasic;
@@ -114,56 +112,35 @@ final class ArrayTools
 	}
 	
 	/**
-	 * Returns the first item when `curItem` is not the last index and `wrap` is enabled.
-	 * When `curItem` is the last index, attempts to return the item after it; otherwise returns `null`.
+	 * Returns the item following `curItem`, or the first item when wrapping from the end.
 	 * @param array The array to read.
 	 * @param curItem The current item index.
-	 * @param wrap Whether to return the first item when the current index is outside the last index.
-	 * @return The first item, the item at `curItem + 1`, or `null`, according to the current index and `wrap`.
+	 * @param wrap Whether to return the first item when `curItem` is the last index.
+	 * @return The next item, or `null` when the array is empty, the index is invalid, or wrapping is disabled at the end.
 	 */
 	public static inline function nextItem<T>(array:Array<T>, curItem:Int = 0, wrap:Bool = false):Null<T>
 	{
-		if (!hasItems(array)) return null;
+		if (!hasItems(array) || curItem < 0 || curItem >= array.length) return null;
 		
-		if (curItem > (array.length - 1) || curItem < (array.length - 1))
-		{
-			if (wrap)
-			{
-				return array[0];
-			}
-		}
-		else return
-		{
-			array[curItem + 1];
-		}
+		if (curItem == array.length - 1) return wrap ? array[0] : null;
 		
-		return null;
+		return array[curItem + 1];
 	}
 	
 	/**
-	 * Returns the last item when `curItem` is not the last index and `wrap` is enabled.
-	 * When `curItem` is the last index, returns the preceding item.
+	 * Returns the item preceding `curItem`, or the last item when wrapping from the start.
 	 * @param array The array to read.
 	 * @param curItem The current item index.
-	 * @param wrap Whether to return the last item when the current index is outside the last index.
-	 * @return The last item, the preceding item, or `null`, according to the current index and `wrap`.
+	 * @param wrap Whether to return the last item when `curItem` is the first index.
+	 * @return The previous item, or `null` when the array is empty, the index is invalid, or wrapping is disabled at the start.
 	 */
 	public static inline function previousItem<T>(array:Array<T>, curItem:Int = 0, wrap:Bool = false):Null<T>
 	{
-		if (!hasItems(array)) return null;
+		if (!hasItems(array) || curItem < 0 || curItem >= array.length) return null;
 		
-		var lengthIndex:Int = array.length - 1;
+		if (curItem == 0) return wrap ? array[array.length - 1] : null;
 		
-		if (curItem < lengthIndex || curItem > lengthIndex)
-		{
-			if (wrap) return array[lengthIndex];
-		}
-		else
-		{
-			return array[curItem - 1];
-		}
-		
-		return null;
+		return array[curItem - 1];
 	}
 	
 	/**
@@ -290,18 +267,14 @@ final class ArrayTools
 	 */
 	public static inline function chunk<T>(array:Array<T>, size:Int):Array<Array<T>>
 	{
-		size = IntTools.max(size, 0);
+		if (size <= 0) throw "Chunk size must be greater than zero.";
 		
-		var chunks = Math.ceil(array.length / size);
 		var result = [];
-		result.resize(chunks);
 		
 		var index = 0;
-		var chunkIndex = 0;
-		
 		while (index < array.length)
 		{
-			result[chunkIndex++] = array.slice(index, index + size);
+			result.push(array.slice(index, index + size));
 			index += size;
 		}
 		

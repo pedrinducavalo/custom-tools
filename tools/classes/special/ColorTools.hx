@@ -1,7 +1,7 @@
-package tools.special;
+package tools.classes.special;
 
-import tools.math.EasingTools.EaseFunc;
-import tools.basic.FloatTools;
+import tools.classes.math.EasingTools.EaseFunc;
+import tools.classes.basic.FloatTools;
 import tools.utils.FPSUtil;
 
 /**

@@ -1,6 +1,6 @@
 # custom-tools
 
-`custom-tools` is a collection of Haxe extension methods and helpers for common data, math, and gameplay tasks. Version 0.2.0 reorganizes the library into focused packages and adds easing, geometry, time, and string utilities alongside the existing array, map, enum, boolean, integer, float, and color helpers.
+`custom-tools` is a collection of Haxe utilities and reusable building blocks for data, math, physics, and gameplay. It includes extension helpers for common types, geometry and physics calculations, data classes, lifecycle interfaces, and typed color and easing abstracts.
 
 ## Installation
 
@@ -18,48 +18,55 @@ haxelib dev custom-tools .
 
 ## Using the library
 
-Import only the helpers you need with Haxe's `using` syntax. For example, this combines collection operations, numeric interpolation, easing, geometry, and time formatting:
+Import only the helpers and types you need. This example combines collection extensions, interpolation, geometry, physics, and typed values:
 
 ```haxe
-using tools.basic.FloatTools;
-using tools.iterables.ArrayTools;
-using tools.math.EasingTools;
-using tools.math.GeomTools;
-using tools.math.TimeTools;
+import tools.abstracts.Color;
+import tools.classes.basic.FloatTools;
+import tools.classes.math.EasingTools;
+import tools.classes.physics.KinematicsTools;
+import tools.classes.structs.Vector2;
+
+using tools.classes.iterables.ArrayTools;
+using tools.classes.special.StringTools;
 
 class Main {
     static function main() {
-        var samples = [12.5, 40.0, 75.0, 100.0];
-        var visible = samples.without([40.0]).chunk(2);
-        trace(visible); // [[12.5, 75.0], [100.0]]
+        var readings = [12.5, 40.0, 75.0, 100.0];
+        var groups = readings.without([40.0]).chunk(2);
+        trace(groups); // [[12.5, 75.0], [100.0]]
 
-        var progress = 0.65;
-        var eased = FloatTools.easeLerp(0, 100, progress, EasingTools.sineOut);
-        trace(eased);
+        var progress = FloatTools.easeLerp(0, 100, 0.65, EasingTools.sineOut);
+        var position = new Vector2(progress, 4);
+        trace(position.length());
+        trace(KinematicsTools.displacement(2, 3, 4)); // 32
 
-        var distance = GeomTools.distance(0, 0, 3, 4);
-        trace(distance); // 5
-
-        trace(TimeTools.formatTime(125.25, true)); // 02:05.250
+        var accent:Color = Color.fromRgb(255, 64, 32);
+        trace(accent.red); // 255
+        trace("custom_tools library".toTitleCase()); // Custom Tools Library
     }
 }
 ```
 
-Utilities are organized by purpose:
+The main code areas are:
 
-| Package | Contents |
+| Area | Contents |
 | --- | --- |
-| `tools.basic` | Boolean, integer, and floating-point helpers. |
-| `tools.iterables` | Array and map extensions. |
-| `tools.math` | Easing curves, geometry operations, and time formatting/conversions. |
-| `tools.special` | Color, enum reflection, and string helpers. |
+| `tools.classes.basic` | Boolean, integer, and floating-point helpers. |
+| `tools.classes.iterables` | Array and map extensions. |
+| `tools.classes.math` | Easing, geometry, and date/time utilities. |
+| `tools.classes.physics` | Kinematics, dynamics, and energy calculations. |
+| `tools.classes.special` | Color, enum reflection, and string helpers. |
+| `tools.classes.structs` | `Vector2`, `Size2`, and `Rect` geometry/data classes. |
+| `tools.interfaces` | Reusable update, position, cleanup, and reset contracts. |
+| `tools.abstracts` | Typed ARGB colors and callable easing values. |
 | `tools.utils` | Frame-time utilities used by frame-adjusted interpolation. |
 
-Version 0.2.0 changes the module paths from the earlier flat `tools.*` layout. Update imports to the corresponding subpackage paths. `tools.Tools` also declares typedef aliases for the public helper classes; see [API.md](./API.md) for module paths and the complete reference.
+Utility modules use the `tools.classes.*` paths. `tools.Tools` provides typedef aliases for many public utility, abstract, and interface types. Structs are imported from `tools.classes.structs`. See [API](API.md) for the complete reference.
 
-## HaxeFlixel support
+## Framework integrations
 
-When compiled with the `flixel` define, `ArrayTools.clear()` destroys each popped element, `ArrayTools.removeArrayDead()` removes and destroys inactive or nonexistent `FlxBasic` values, and `MapTools.removeMapDead()` removes and destroys map values when all of them are `FlxBasic` instances. `FPSUtil` also reads the current frame time from supported framework timers when their defines are enabled.
+The library integrates with HaxeFlixel, HaxePunk, Ceramic, and Heaps. Framework-aware helpers use the active framework's timing facilities, while some integrations also provide framework-specific object lifecycle utilities. Enable the relevant compile-time define in your project to use these features.
 
 ## Lambda compatibility
 
@@ -68,6 +75,10 @@ When compiled with the `flixel` define, `ArrayTools.clear()` destroys each poppe
 ## License
 
 This project is licensed under the MIT License. See [LICENSE](LICENSE).
+
+## API
+
+For a complete reference to the library's utilities and methods, see [API](API.md).
 
 ## Contributing
 
