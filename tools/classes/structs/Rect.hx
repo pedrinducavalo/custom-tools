@@ -6,9 +6,21 @@ package tools.classes.structs;
 @:nullSafety
 final class Rect
 {
+	/**
+	 * Horizontal coordinate of the rectangle's top-left corner.
+	 */
 	public var x:Float;
+	/**
+	 * Vertical coordinate of the rectangle's top-left corner.
+	 */
 	public var y:Float;
+	/**
+	 * Width of the rectangle.
+	 */
 	public var width:Float;
+	/**
+	 * Height of the rectangle.
+	 */
 	public var height:Float;
 	
 	/**

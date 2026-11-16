@@ -3,8 +3,8 @@
     "url": "https://github.com/pedrinducavalo/custom-tools",
     "license": "MIT",
     "tags": ["utilities", "tools"],
-    "description": "Custom class tools for haxe.",
-    "version": "0.3.0",
-    "releasenote": "Major update: reorganized utilities under tools.classes; added physics calculators, Vector2/Size2/Rect, Color and Easing abstracts, and lifecycle/position interfaces; expanded boolean helpers, easing-aware interpolation, date/time formatting, and collection utilities.",
+    "description": "Custom tools and utilities for Haxe.",
+    "version": "0.4.0",
+    "releasenote": "Expanded the library with memory and rendering helpers, richer color and math utilities, and reorganized extension/function modules.",
     "contributors": ["dre"]
 }

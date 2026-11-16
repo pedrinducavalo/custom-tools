@@ -5,5 +5,8 @@ package tools.interfaces;
  */
 interface IResettable
 {
+	/**
+	 * Restores the object to its initial or reusable state.
+	 */
 	public function reset():Void;
 }

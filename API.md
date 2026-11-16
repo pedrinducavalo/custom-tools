@@ -4,38 +4,47 @@ This reference covers the public utilities, abstracts, structs, and interfaces c
 
 ## Modules and aliases
 
-| Type | Module | `tools.Tools` alias |
+| Type | Module | Category alias |
 | --- | --- | --- |
-| `BoolTools` | `tools.classes.basic.BoolTools` | `tools.Tools.BoolTools` |
-| `FloatTools` | `tools.classes.basic.FloatTools` | `tools.Tools.FloatTools` |
-| `IntTools` | `tools.classes.basic.IntTools` | `tools.Tools.IntTools` |
-| `ArrayTools` | `tools.classes.iterables.ArrayTools` | `tools.Tools.ArrayTools` |
-| `MapTools` | `tools.classes.iterables.MapTools` | `tools.Tools.MapTools` |
-| `EasingTools` | `tools.classes.math.EasingTools` | `tools.Tools.EasingTools` |
-| `GeomTools` | `tools.classes.math.GeomTools` | `tools.Tools.GeomTools` |
-| `TimeTools` | `tools.classes.math.TimeTools` | `tools.Tools.TimeTools` |
-| `KinematicsTools` | `tools.classes.physics.KinematicsTools` | `tools.Tools.KinematicsTools` |
-| `DynamicsTools` | `tools.classes.physics.DynamicsTools` | `tools.Tools.DynamicsTools` |
-| `EnergyTools` | `tools.classes.physics.EnergyTools` | `tools.Tools.EnergyTools` |
-| `ColorTools` | `tools.classes.special.ColorTools` | `tools.Tools.ColorTools` |
-| `EnumTools` | `tools.classes.special.EnumTools` | `tools.Tools.EnumTools` |
-| `StringTools` | `tools.classes.special.StringTools` | `tools.Tools.StringTools` |
-| `Color` | `tools.abstracts.Color` | `tools.Tools.Color` |
-| `Easing` | `tools.abstracts.Easing` | `tools.Tools.Easing` |
-| `IDestroyable` | `tools.interfaces.IDestroyable` | `tools.Tools.IDestroyable` |
-| `IPositionable` | `tools.interfaces.IPositionable` | `tools.Tools.IPositionable` |
-| `IResettable` | `tools.interfaces.IResettable` | `tools.Tools.IResettable` |
-| `IUpdatable` | `tools.interfaces.IUpdatable` | `tools.Tools.IUpdatable` |
-| `FPSUtil` | `tools.utils.FPSUtil` | — |
-| `Vector2` | `tools.classes.structs.Vector2` | — |
-| `Size2` | `tools.classes.structs.Size2` | — |
-| `Rect` | `tools.classes.structs.Rect` | — |
+| `BoolTools` | `tools.classes.extensions.basic.BoolTools` | `tools.classes.Extensions.BoolTools` |
+| `FloatTools` | `tools.classes.extensions.basic.FloatTools` | `tools.classes.Extensions.FloatTools` |
+| `IntTools` | `tools.classes.extensions.basic.IntTools` | `tools.classes.Extensions.IntTools` |
+| `ArrayTools` | `tools.classes.extensions.iterables.ArrayTools` | `tools.classes.Extensions.ArrayTools` |
+| `MapTools` | `tools.classes.extensions.iterables.MapTools` | `tools.classes.Extensions.MapTools` |
+| `MathTools` | `tools.classes.functions.math.MathTools` | `tools.classes.Functions.MathTools` |
+| `EasingTools` | `tools.classes.functions.math.EasingTools` | `tools.classes.Functions.EasingTools` |
+| `GeomTools` | `tools.classes.functions.math.GeomTools` | `tools.classes.Functions.GeomTools` |
+| `TimeTools` | `tools.classes.functions.math.TimeTools` | `tools.classes.Functions.TimeTools` |
+| `KinematicsTools` | `tools.classes.functions.physics.KinematicsTools` | `tools.classes.Functions.KinematicsTools` |
+| `DynamicsTools` | `tools.classes.functions.physics.DynamicsTools` | `tools.classes.Functions.DynamicsTools` |
+| `EnergyTools` | `tools.classes.functions.physics.EnergyTools` | `tools.classes.Functions.EnergyTools` |
+| `MemoryTools` | `tools.classes.functions.memory.MemoryTools` | `tools.classes.Functions.MemoryTools` |
+| `BytesTools` | `tools.classes.functions.memory.BytesTools` | `tools.classes.Functions.BytesTools` |
+| `ObjectPoolTools` | `tools.classes.functions.memory.ObjectPoolTools` | `tools.classes.Functions.ObjectPoolTools` |
+| `ColorTools` | `tools.classes.extensions.special.ColorTools` | `tools.classes.Extensions.ColorTools` |
+| `EnumTools` | `tools.classes.extensions.special.EnumTools` | `tools.classes.Extensions.EnumTools` |
+| `StringTools` | `tools.classes.extensions.special.StringTools` | `tools.classes.Extensions.StringTools` |
+| `SpriteTools` | `tools.classes.extensions.backend.SpriteTools` | `tools.classes.Extensions.SpriteTools` (framework define required) |
+| `Color` | `tools.abstracts.Color` | `tools.Abstracts.Color` |
+| `Easing` | `tools.abstracts.Easing` | `tools.Abstracts.Easing` |
+| `IDestroyable` | `tools.interfaces.IDestroyable` | `tools.Interfaces.IDestroyable` |
+| `IPositionable` | `tools.interfaces.IPositionable` | `tools.Interfaces.IPositionable` |
+| `IResettable` | `tools.interfaces.IResettable` | `tools.Interfaces.IResettable` |
+| `IUpdatable` | `tools.interfaces.IUpdatable` | `tools.Interfaces.IUpdatable` |
+| `FPSUtil` | `tools.utils.FPSUtil` | `tools.Utils.FPSUtil` |
+| `Vector2` | `tools.classes.structs.Vector2` | `tools.classes.Structs.Vector2` |
+| `Size2` | `tools.classes.structs.Size2` | `tools.classes.Structs.Size2` |
+| `Rect` | `tools.classes.structs.Rect` | `tools.classes.Structs.Rect` |
 
-Use extension methods with `using`, for example `using tools.classes.basic.FloatTools;`. The aliases are declared within the `tools.Tools` module; classes should normally be imported from their full module paths.
+Use extension methods with `using`, for example `using tools.classes.extensions.basic.FloatTools;`. Call static functions and data types from their module paths, such as `import tools.classes.functions.math.GeomTools;` or `import tools.classes.structs.Vector2;`. Category aliases are exposed by `tools.classes.Extensions`, `tools.classes.Functions`, `tools.classes.Structs`, `tools.Abstracts`, `tools.Interfaces`, and `tools.Utils`. `NativeSprite` and `SpriteTools` are only available with their corresponding framework defines.
 
-## `tools.classes.basic.BoolTools`
+## Recommended project `import.hx`
 
-Boolean conversion, logic, selection, and conditional-action helpers. Use with `using tools.classes.basic.BoolTools;`.
+For project-wide imports and extension methods, copy [`tools/import.hx`](tools/import.hx) to an `import.hx` file in your project root, alongside the Haxe build file. The template imports the library's common types and enables its extensions across the project; `SpriteTools` is included only when a supported framework define is active.
+
+## `tools.classes.extensions.basic.BoolTools`
+
+Boolean conversion, logic, selection, and conditional-action helpers. Use with `using tools.classes.extensions.basic.BoolTools;`.
 
 | Method | Description |
 | --- | --- |
@@ -53,13 +62,12 @@ Boolean conversion, logic, selection, and conditional-action helpers. Use with `
 | `unless(bool, action):Void` | Runs `action` only when the boolean is `false`. |
 | `string(bool, ?yes, ?no):String` | Uses custom text when both `yes` and `no` are given; otherwise returns the standard boolean string. |
 
-## `tools.classes.basic.FloatTools`
+## `tools.classes.extensions.basic.FloatTools`
 
 Floating-point comparison, range, rounding, interpolation, and sign helpers.
 
 | Method | Description |
 | --- | --- |
-| `nearEquals(a, b, epsilon = 0.00001):Bool` | Checks whether the absolute difference is at most `epsilon`. |
 | `clamp(float, min, max):Float` | Restricts the value to the inclusive interval `[min, max]`. |
 | `roundToDecimal(float, decimals):Float` | Rounds to the requested number of decimal places. |
 | `floorToDecimal(float, decimals):Float` | Rounds down to the requested number of decimal places. |
@@ -69,21 +77,17 @@ Floating-point comparison, range, rounding, interpolation, and sign helpers.
 | `easeLerp(a, b, t, ?ease):Float` | Interpolates using clamped progress and an optional `EaseFunc`. |
 | `fixedEaseLerp(a, b, t, ?ease):Float` | Interpolates using frame-time-adjusted progress and an optional `EaseFunc`. |
 | `sign(float):Int` | Returns `1`, `-1`, or `0` according to the value's sign. |
-| `min(float, other):Float` | Returns the smaller value. |
-| `max(float, other):Float` | Returns the larger value. |
 | `randomSign():Int` | Randomly returns `-1`, `0`, or `1`. |
 
-`EaseFunc` is declared in `tools.classes.math.EasingTools`.
+`EaseFunc` is declared in `tools.classes.functions.math.EasingTools`.
 
-## `tools.classes.basic.IntTools`
+## `tools.classes.extensions.basic.IntTools`
 
 Integer range, comparison, sign, formatting, and random helpers.
 
 | Method | Description |
 | --- | --- |
 | `clamp(int, min, max):Int` | Restricts the value to the inclusive interval `[min, max]`. |
-| `min(int, other):Int` | Returns the smaller integer. |
-| `max(int, other):Int` | Returns the larger integer. |
 | `sign(int):Int` | Returns `1`, `-1`, or `0` according to the value's sign. |
 | `randomSign():Int` | Randomly returns `-1` or `1`. |
 | `isEven(int):Bool` | Checks whether the integer is divisible by two. |
@@ -96,9 +100,9 @@ Integer range, comparison, sign, formatting, and random helpers.
 | `padLeft(int, length, char = "0"):String` | Converts the integer to text padded on the left to at least `length`. |
 | `random(min, max):Int` | Returns a random integer in the inclusive range; requires `min <= max`. |
 
-## `tools.classes.iterables.ArrayTools`
+## `tools.classes.extensions.iterables.ArrayTools`
 
-Array retrieval, transformation, numeric, and cleanup extensions. Use with `using tools.classes.iterables.ArrayTools;`.
+Array retrieval, transformation, numeric, and cleanup extensions. Use with `using tools.classes.extensions.iterables.ArrayTools;`.
 
 | Method | Description |
 | --- | --- |
@@ -119,7 +123,7 @@ Array retrieval, transformation, numeric, and cleanup extensions. Use with `usin
 | `hasItems<T>(array):Bool` | Checks whether the array contains at least one element. |
 | `chunk<T>(array, size):Array<Array<T>>` | Splits the array into consecutive chunks; throws an error when `size <= 0`. |
 
-## `tools.classes.iterables.MapTools`
+## `tools.classes.extensions.iterables.MapTools`
 
 Lookup, copying, transformation, and inspection extensions for `haxe.Constraints.IMap`.
 
@@ -139,7 +143,7 @@ Lookup, copying, transformation, and inspection extensions for `haxe.Constraints
 | `isMapKeysOf<K, V>(map, type):Null<Bool>` | Checks whether every key is an instance of `type`; returns `null` when empty. |
 | `isMapValuesOf<K, V>(map, type):Null<Bool>` | Checks whether every value is an instance of `type`; returns `null` when empty. |
 
-## `tools.classes.math.EasingTools`
+## `tools.classes.functions.math.EasingTools`
 
 Easing functions map progress `t` to eased progress; inputs are not automatically clamped. Direction dispatchers default to `InOut`.
 
@@ -161,7 +165,7 @@ Easing functions map progress `t` to eased progress; inputs are not automaticall
 
 All direct variants accept a single `Float` and return a `Float`. `fromString(ease, ?type):Null<EaseFunc>` looks up a function by family and optional direction, ignoring case and surrounding whitespace; unknown names return `null`. `EaseFunc` is `Float->Float`; `EaseFuncWithType` is `(Float, EasingType)->Float`. `EasingType` is an abstract string enum with `In`, `Out`, `InOut`, and `OutIn`.
 
-## `tools.classes.math.GeomTools`
+## `tools.classes.functions.math.GeomTools`
 
 Basic two-dimensional geometry helpers.
 
@@ -173,7 +177,21 @@ Basic two-dimensional geometry helpers.
 | `pointInRect(px, py, rx, ry, rw, rh):Bool` | Checks whether a point is inside or on the boundary of an axis-aligned rectangle. |
 | `circleOverlap(x1, y1, r1, x2, y2, r2):Bool` | Checks whether two circles overlap or touch. |
 
-## `tools.classes.math.TimeTools`
+## `tools.classes.functions.math.MathTools`
+
+Variadic numeric helpers and compile-time min/max macros.
+
+| Method | Description |
+| --- | --- |
+| `nearEquals(a, b, epsilon = 0.00001):Bool` | Checks whether the absolute difference between two values is at most `epsilon`. |
+| `min(values...):Float` | Returns the smallest supplied value; provide at least one value. |
+| `max(values...):Float` | Returns the largest supplied value; provide at least one value. |
+| `fastMin(values...):Expr` | Macro that expands to a comparison expression for the smallest supplied value. |
+| `fastMax(values...):Expr` | Macro that expands to a comparison expression for the largest supplied value. |
+
+`fastMin` and `fastMax` run at compile time and are not available in runtime-interpreted environments such as HScript or Lua. With no arguments, they expand to positive and negative infinity respectively.
+
+## `tools.classes.functions.math.TimeTools`
 
 Time formatting and unit conversions.
 
@@ -185,7 +203,7 @@ Time formatting and unit conversions.
 | `toSeconds(time, inMs = false):Float` | Converts minutes to seconds, or milliseconds to seconds when `inMs` is true. |
 | `toMinutes(time, isHours = false):Float` | Converts seconds to minutes, or hours to minutes when `isHours` is true. |
 
-## `tools.classes.physics.KinematicsTools`
+## `tools.classes.functions.physics.KinematicsTools`
 
 One-dimensional constant-acceleration calculations.
 
@@ -195,7 +213,7 @@ One-dimensional constant-acceleration calculations.
 | `displacement(initialVelocity, acceleration, time):Float` | Calculates displacement under constant acceleration. |
 | `averageVelocity(displacement, time):Float` | Calculates displacement divided by elapsed time; throws if `time == 0`. |
 
-## `tools.classes.physics.DynamicsTools`
+## `tools.classes.functions.physics.DynamicsTools`
 
 Basic force and momentum calculations.
 
@@ -206,7 +224,7 @@ Basic force and momentum calculations.
 | `momentum(mass, velocity):Float` | Calculates linear momentum. |
 | `impulse(force, time):Float` | Calculates impulse for a constant force over a time interval. |
 
-## `tools.classes.physics.EnergyTools`
+## `tools.classes.functions.physics.EnergyTools`
 
 Work, energy, and power calculations.
 
@@ -217,7 +235,51 @@ Work, energy, and power calculations.
 | `work(force, displacement, angleRadians = 0):Float` | Calculates work from force, displacement, and their angle in radians. |
 | `power(work, time):Float` | Calculates average power; throws if `time <= 0`. |
 
-## `tools.classes.special.ColorTools`
+## `tools.classes.functions.memory.MemoryTools`
+
+Binary memory-size conversion, formatting, and alignment helpers. Size formatting uses binary units (KiB, MiB, GiB, TiB).
+
+| Method | Description |
+| --- | --- |
+| `bytesToKilobytes(bytes):Float` | Converts bytes to kibibytes using a 1024-byte base. |
+| `kilobytesToBytes(kilobytes):Float` | Converts kibibytes to bytes. |
+| `bytesToMegabytes(bytes):Float` | Converts bytes to mebibytes. |
+| `megabytesToBytes(megabytes):Float` | Converts mebibytes to bytes. |
+| `bytesToGigabytes(bytes):Float` | Converts bytes to gibibytes. |
+| `gigabytesToBytes(gigabytes):Float` | Converts gibibytes to bytes. |
+| `formatBytes(bytes, decimals = 2):String` | Formats a non-negative size using binary units; decimal places must be 0–10. |
+| `alignUp(bytes, alignment):Int` | Rounds a non-negative byte count up to a positive alignment. |
+| `alignDown(bytes, alignment):Int` | Rounds a non-negative byte count down to a positive alignment. |
+| `isAligned(bytes, alignment):Bool` | Checks whether a non-negative byte count is a multiple of a positive alignment. |
+
+## `tools.classes.functions.memory.BytesTools`
+
+| Method | Description |
+| --- | --- |
+| `copy(bytes):Bytes` | Returns a copy of a byte sequence. |
+| `concat(values):Bytes` | Concatenates byte sequences in order. |
+| `fill(bytes, value):Void` | Fills bytes in place with a value from 0 to 255. |
+| `equals(a, b):Bool` | Checks whether two byte sequences have identical contents. |
+| `indexOf(bytes, pattern, start = 0):Int` | Finds the first occurrence of a byte sequence, or returns `-1`. |
+| `toHex(bytes):String` | Encodes bytes as lowercase hexadecimal text. |
+| `fromHex(hex):Bytes` | Decodes hexadecimal text into bytes. |
+
+## `tools.classes.functions.memory.ObjectPoolTools`
+
+Array-backed object reuse helpers. A pool is represented by `Array<T>`.
+
+| Method | Description |
+| --- | --- |
+| `create<T>():Array<T>` | Creates an empty pool. |
+| `acquire<T>(pool, factory):T` | Retrieves a pooled object or creates one when empty. |
+| `release<T>(pool, item, maxSize = -1):Bool` | Adds an item unless the optional pool capacity is reached. |
+| `releaseMany<T>(pool, items, maxSize = -1):Int` | Adds as many items as capacity allows without changing `items`. |
+| `trim<T>(pool, maxSize):Int` | Removes excess items until the pool fits the maximum size. |
+| `clear<T>(pool):Void` | Removes all pooled items. |
+| `size<T>(pool):Int` | Returns the number of stored items. |
+| `hasItems<T>(pool):Bool` | Checks whether the pool is non-empty. |
+
+## `tools.classes.extensions.special.ColorTools`
 
 Color utilities use packed ARGB integers: alpha, red, green, then blue.
 
@@ -234,9 +296,9 @@ Color utilities use packed ARGB integers: alpha, red, green, then blue.
 | `getBlue(color):Float` | Reads the blue channel (`0-255`). |
 | `toString(color):String` | Returns the decimal string representation of the integer. |
 
-Fixed interpolation methods use `tools.utils.FPSUtil`; easing methods use `EaseFunc` from `tools.classes.math.EasingTools`.
+Fixed interpolation methods use `tools.utils.FPSUtil`; easing methods use `EaseFunc` from `tools.classes.functions.math.EasingTools`.
 
-## `tools.classes.special.EnumTools`
+## `tools.classes.extensions.special.EnumTools`
 
 Reflection helpers for enum types and values.
 
@@ -249,7 +311,7 @@ Reflection helpers for enum types and values.
 | `toString(enumValue):String` | Returns the constructor name, or an empty string for a null value. |
 | `getAllValues<T>(e:Enum<T>):Array<T>` | Creates constructors that take no arguments; constructors requiring arguments are skipped. |
 
-## `tools.classes.special.StringTools`
+## `tools.classes.extensions.special.StringTools`
 
 String checking, transformation, and case formatting. `CaseType` has `Lower` and `Upper` values.
 
@@ -265,6 +327,40 @@ String checking, transformation, and case formatting. `CaseType` has `Lower` and
 | `toKebabCase(str, type = Lower):String` | Joins normalized words with hyphens and applies lower or upper case. |
 | `toSnakeCase(str, type = Lower):String` | Joins normalized words with underscores and applies lower or upper case. |
 
+## `tools.classes.extensions.backend.SpriteTools`
+
+`SpriteTools` is available when compiling with a supported framework define. Flixel uses `flixel.FlxSprite`, OpenFL uses `openfl.display.Sprite`, Heaps uses `h2d.Object`, and Ceramic uses `ceramic.Visual`. `NativeSprite` aliases the corresponding framework type where one is defined.
+
+| Method | Description |
+| --- | --- |
+| `blink(sprite, elapsedTime, frequency):Void` | Applies a 50%-duty blink based on elapsed time. A non-positive frequency leaves the sprite visible. |
+| `flashColor(sprite, color, duration):Void` | On Flixel, tweens from the current color to the flash color and back using the framework's color representation. |
+| `flashColor(sprite, color, elapsedTime, duration):Void` | On OpenFL and Heaps, updates the color flash for the current frame; call with elapsed time since the effect began. Heaps requires an `h2d.Drawable`. |
+| `flashColor(quad, color, duration):Void` | On Ceramic, tweens a `ceramic.Quad` from its current color and back using Ceramic's color representation. |
+| `setVisible(sprite, visible):Void` | Sets sprite visibility. |
+| `setAlpha(sprite, alpha):Void` | Sets opacity, clamped to `[0, 1]`. |
+| `setPosition(sprite, x, y):Void` | Sets the sprite position. |
+| `moveBy(sprite, x, y):Void` | Moves the sprite by an offset. |
+| `setScale(sprite, x, y):Void` | Sets horizontal and vertical scale; Flixel also updates the hitbox. |
+| `setRotation(sprite, degrees):Void` | Sets rotation in degrees; Heaps converts to radians internally. |
+| `setFlipX(sprite, flipped):Void` | Enables or disables horizontal flipping. |
+| `setFlipY(sprite, flipped):Void` | Enables or disables vertical flipping. |
+
+When compiling with `kha`, the class instead provides image drawing helpers because Kha does not have a mutable sprite object:
+
+| Method | Description |
+| --- | --- |
+| `drawAt(graphics, image, x, y):Void` | Draws an image at a position. |
+| `drawCentered(graphics, image, x, y):Void` | Draws an image centered on a position. |
+| `drawOffset(graphics, image, x, y, offsetX, offsetY):Void` | Draws an image with an additional offset. |
+| `drawWithAlpha(graphics, image, x, y, alpha):Void` | Draws an image with the supplied opacity. |
+| `drawScaled(graphics, image, x, y, scaleX, scaleY):Void` | Draws an image with independent horizontal and vertical scales. |
+| `drawRotated(graphics, image, x, y, angle):Void` | Draws a rotated image; `angle` is in radians. |
+| `drawFlipped(graphics, image, x, y, horizontal, vertical):Void` | Draws an image with optional horizontal and vertical flipping. |
+| `drawTinted(graphics, image, x, y, color):Void` | Draws an image tinted with a Kha color. |
+| `drawFlashColor(graphics, image, x, y, color, elapsedTime, duration):Void` | Draws a frame-driven color flash; call while drawing each frame. |
+| `blink(graphics, image, x, y, elapsedTime, frequency):Void` | Draws the image on alternating intervals; a non-positive frequency draws it normally. |
+
 ## `tools.classes.structs.Vector2`
 
 A mutable two-dimensional vector with methods that return new vectors for arithmetic and transforms.
@@ -273,6 +369,7 @@ A mutable two-dimensional vector with methods that return new vectors for arithm
 | --- | --- |
 | `x:Float`, `y:Float` | Public mutable components. |
 | `new(x:Float = 0, y:Float = 0)` | Creates a vector with the supplied coordinates. |
+| `zero:Vector2` | Shared mutable zero vector. Avoid mutating it if using it as a zero constant. |
 | `copy():Vector2` | Returns a copy. |
 | `add(other:Vector2):Vector2` | Returns the component-wise sum. |
 | `subtract(other:Vector2):Vector2` | Returns the component-wise difference. |
@@ -311,16 +408,22 @@ An axis-aligned rectangle with a mutable position and dimensions.
 
 ## `tools.abstracts.Color`
 
-An abstract ARGB color backed by `Int`, implicitly convertible from and to `Int`.
+An abstract ARGB color backed by `Int`, implicitly convertible from and to `Int` and `UInt`.
 
 | Member | Description |
 | --- | --- |
 | `new(value:Int)` | Wraps a packed ARGB integer. |
-| `alpha:Int`, `red:Int`, `green:Int`, `blue:Int` | Read-only color channels. |
+| `TRANSPARENT`, `BLACK`, `WHITE`, `RED`, `GREEN`, `BLUE`, `YELLOW`, `CYAN`, `MAGENTA`, `ORANGE`, `PURPLE`, `PINK`, `BROWN`, `GRAY`, `LIGHT_GRAY`, `DARK_GRAY`, `NAVY`, `TEAL`, `LIME`, `MAROON`, `OLIVE`, `SILVER`, `GOLD`, `CORAL`, `TURQUOISE`, `INDIGO`, `VIOLET` | Static opaque color presets, except `TRANSPARENT` which has zero alpha. |
+| `rgb:Int`, `alpha:Int`, `red:Int`, `green:Int`, `blue:Int` | Mutable ARGB color channels; `rgb` reads and writes the lower 24 bits. |
+| `hue:Float`, `saturation:Float`, `brightness:Float`, `lightness:Float` | Mutable HSV/HSL components; hue is in degrees, saturation/value/brightness/lightness are normalized to `[0, 1]`. |
+| `normalizedAlpha:Float`, `normalizedRed:Float`, `normalizedGreen:Float`, `normalizedBlue:Float` | Mutable normalized channels in `[0, 1]`. |
 | `fromRgb(red:Int, green:Int, blue:Int):Color` | Creates an opaque color with channels clamped to `0-255`. |
 | `fromArgb(alpha:Int, red:Int, green:Int, blue:Int):Color` | Creates a color with all channels clamped to `0-255`. |
-| `withAlpha(value:Int):Color` | Returns a copy with a replacement alpha channel. |
-| `lerp(other:Color, ratio:Float):Color` | Interpolates this color toward another via `ColorTools.lerpColor`. |
+| `withAlpha(value:Int):Color` | Returns a copy with the alpha channel replaced and clamped to `0-255`. |
+| `fromString(value:String):Color` | Parses a decimal ARGB integer. |
+| `toString():String` | Returns the decimal ARGB integer representation. |
+
+The preset names `MAGENTA` and `PINK` have their packed values reversed from the conventional colors: `MAGENTA` is pink (`0xFFFFC0CB`) and `PINK` is magenta (`0xFFFF00FF`).
 
 ## `tools.abstracts.Easing`
 

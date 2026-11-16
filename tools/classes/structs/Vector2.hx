@@ -1,13 +1,26 @@
 package tools.classes.structs;
 
+import tools.interfaces.IPositionable;
+
 /**
  * A simple two-dimensional vector.
  */
 @:nullSafety
-final class Vector2
+final class Vector2 implements IPositionable
 {
+	/**
+	 * Horizontal component of the vector.
+	 */
 	public var x:Float;
+	/**
+	 * Vertical component of the vector.
+	 */
 	public var y:Float;
+	
+	/**
+	 * Shared mutable vector initialized at the origin.
+	 */
+	public static var zero:Vector2 = new Vector2(0, 0);
 	
 	/**
 	 * Creates a vector with the supplied coordinates.

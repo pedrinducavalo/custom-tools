@@ -5,5 +5,8 @@ package tools.interfaces;
  */
 interface IDestroyable
 {
+	/**
+	 * Releases resources held by the object.
+	 */
 	public function destroy():Void;
 }

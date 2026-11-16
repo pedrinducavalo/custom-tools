@@ -5,6 +5,12 @@ package tools.interfaces;
  */
 interface IPositionable
 {
+	/**
+	 * Horizontal position.
+	 */
 	public var x:Float;
+	/**
+	 * Vertical position.
+	 */
 	public var y:Float;
 }

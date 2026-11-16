@@ -1,6 +1,6 @@
 # custom-tools
 
-`custom-tools` is a collection of Haxe utilities and reusable building blocks for data, math, physics, and gameplay. It includes extension helpers for common types, geometry and physics calculations, data classes, lifecycle interfaces, and typed color and easing abstracts.
+`custom-tools` is a collection of Haxe tools and reusable building blocks for applications and games. It includes extension methods, static utility functions, framework helpers, and common data types.
 
 ## Installation
 
@@ -21,14 +21,15 @@ haxelib dev custom-tools .
 Import only the helpers and types you need. This example combines collection extensions, interpolation, geometry, physics, and typed values:
 
 ```haxe
-import tools.abstracts.Color;
-import tools.classes.basic.FloatTools;
-import tools.classes.math.EasingTools;
-import tools.classes.physics.KinematicsTools;
+import tools.Abstracts.Color;
+import tools.classes.functions.math.EasingTools;
+import tools.classes.functions.physics.KinematicsTools;
+import tools.classes.functions.math.GeomTools;
 import tools.classes.structs.Vector2;
 
-using tools.classes.iterables.ArrayTools;
-using tools.classes.special.StringTools;
+using tools.classes.extensions.basic.FloatTools;
+using tools.classes.extensions.iterables.ArrayTools;
+using tools.classes.extensions.special.StringTools;
 
 class Main {
     static function main() {
@@ -36,9 +37,10 @@ class Main {
         var groups = readings.without([40.0]).chunk(2);
         trace(groups); // [[12.5, 75.0], [100.0]]
 
-        var progress = FloatTools.easeLerp(0, 100, 0.65, EasingTools.sineOut);
+        var progress = 0.0.easeLerp(100, 0.65, EasingTools.sineOut);
         var position = new Vector2(progress, 4);
         trace(position.length());
+        trace(GeomTools.distance(0, 0, 3, 4)); // 5
         trace(KinematicsTools.displacement(2, 3, 4)); // 32
 
         var accent:Color = Color.fromRgb(255, 64, 32);
@@ -52,25 +54,33 @@ The main code areas are:
 
 | Area | Contents |
 | --- | --- |
-| `tools.classes.basic` | Boolean, integer, and floating-point helpers. |
-| `tools.classes.iterables` | Array and map extensions. |
-| `tools.classes.math` | Easing, geometry, and date/time utilities. |
-| `tools.classes.physics` | Kinematics, dynamics, and energy calculations. |
-| `tools.classes.special` | Color, enum reflection, and string helpers. |
+| `tools.classes.extensions.basic` | Boolean, integer, and floating-point extensions. |
+| `tools.classes.extensions.iterables` | Array and map extensions. |
+| `tools.classes.extensions.special` | Color, enum, and string helpers. |
+| `tools.classes.extensions.backend` | Framework-specific sprite and image drawing helpers. |
+| `tools.classes.functions.math` | Numeric, easing, geometry, and date/time functions. |
+| `tools.classes.functions.physics` | Kinematics, dynamics, and energy functions. |
+| `tools.classes.functions.memory` | Memory-size, byte sequence, and object-pool utilities. |
 | `tools.classes.structs` | `Vector2`, `Size2`, and `Rect` geometry/data classes. |
 | `tools.interfaces` | Reusable update, position, cleanup, and reset contracts. |
 | `tools.abstracts` | Typed ARGB colors and callable easing values. |
 | `tools.utils` | Frame-time utilities used by frame-adjusted interpolation. |
 
-Utility modules use the `tools.classes.*` paths. `tools.Tools` provides typedef aliases for many public utility, abstract, and interface types. Structs are imported from `tools.classes.structs`. See [API](API.md) for the complete reference.
+Use `using tools.classes.extensions.*` for extension methods and import static helpers from `tools.classes.functions.*`. Category aliases are available through `tools.classes.Extensions`, `tools.classes.Functions`, `tools.classes.Structs`, `tools.Abstracts`, `tools.Interfaces`, and `tools.Utils`. See [API](API.md) for the complete reference.
+
+`SpriteTools` provides common sprite and image-drawing helpers for supported rendering frameworks. The available operations vary by framework and are summarized in [API](API.md).
 
 ## Framework integrations
 
-The library integrates with HaxeFlixel, HaxePunk, Ceramic, and Heaps. Framework-aware helpers use the active framework's timing facilities, while some integrations also provide framework-specific object lifecycle utilities. Enable the relevant compile-time define in your project to use these features.
+The library has integrations for HaxeFlixel, HaxePunk, OpenFL, Ceramic, Heaps, and Kha. `FPSUtil` can use native frame timing in HaxeFlixel, HaxePunk, Ceramic, and Heaps; framework-specific helpers also include Flixel-aware collection cleanup, native sprite color flashes, and Kha image drawing. Enable the relevant compile-time define in your project to use them.
 
 ## Lambda compatibility
 
 `ArrayTools.find()`, `ArrayTools.flatten()`, and `MapTools.filter()` were removed in version 0.1.0 because their names conflict with Haxe's standard `Lambda` extensions. Use `using Lambda;` for those operations.
+
+## `Tools.hx` compatibility
+
+`Tools.hx` was dissolved to fit the project's new package structure. Its aliases are now split across six modules: `tools.classes.Extensions`, `tools.classes.Functions`, `tools.classes.Structs`, `tools.Abstracts`, `tools.Interfaces`, and `tools.Utils`. Update references such as `tools.Tools.FloatTools` to the corresponding category alias, for example `tools.classes.Extensions.FloatTools`. Direct imports from the helper's own module paths are unchanged.
 
 ## License
 

@@ -6,7 +6,13 @@ package tools.classes.structs;
 @:nullSafety
 final class Size2
 {
+	/**
+	 * Horizontal dimension.
+	 */
 	public var width:Float;
+	/**
+	 * Vertical dimension.
+	 */
 	public var height:Float;
 	
 	/**
